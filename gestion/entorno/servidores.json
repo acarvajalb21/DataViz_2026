@@ -1,0 +1,36 @@
+{
+  "shiny": {
+    "http": {
+      "/": 200
+    },
+    "puerto": 3838,
+    "libre_despues": true
+  },
+  "dash": {
+    "http": {
+      "/": 200,
+      "/health": 200,
+      "/_dash-layout": 200,
+      "/informe/": 200,
+      "/api/asistente/estado": 200
+    },
+    "puerto": 8050,
+    "libre_despues": true
+  },
+  "bookdown": {
+    "http": {
+      "/": 200,
+      "/index.html": 200
+    },
+    "puerto": 4321,
+    "libre_despues": true
+  },
+  "jupyter_book": {
+    "http": {
+      "/": 200,
+      "/intro.html": 200
+    },
+    "puerto": 4322,
+    "libre_despues": true
+  }
+}

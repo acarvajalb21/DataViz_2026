@@ -1,0 +1,23 @@
+{
+  "modelo-salud": {
+    "python": "3.12.10",
+    "ejecutable": "C:\\Users\\USUARIO\\Documents\\DataViz_2026\\proyecto_salud\\ml_salud\\.venv\\Scripts\\python.exe",
+    "pandas": "3.0.5",
+    "numpy": "2.5.2",
+    "cwd": "C:\\Users\\USUARIO\\Documents\\DataViz_2026\\proyecto_salud\\jupyter_salud"
+  },
+  "libro-salud": {
+    "python": "3.12.10",
+    "ejecutable": "C:\\Users\\USUARIO\\Documents\\DataViz_2026\\proyecto_salud\\jupyter_salud\\.venv\\Scripts\\python.exe",
+    "pandas": "2.3.3",
+    "numpy": "2.5.4",
+    "cwd": "C:\\Users\\USUARIO\\Documents\\DataViz_2026\\proyecto_salud\\jupyter_salud"
+  },
+  "credito-curso": {
+    "python": "3.11.9",
+    "ejecutable": "C:\\Users\\USUARIO\\Documents\\DataViz_2026\\curso\\SEMANA_11\\app_dash\\.venv\\Scripts\\python.exe",
+    "pandas": "2.1.0",
+    "numpy": "1.25.2",
+    "cwd": "C:\\Users\\USUARIO\\Documents\\DataViz_2026\\proyecto_salud\\jupyter_salud"
+  }
+}

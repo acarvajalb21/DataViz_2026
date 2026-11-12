@@ -1,0 +1,14 @@
+.venv/
+.dataviz-runtime/
+**/.venv/
+**/__pycache__/
+**/.ipynb_checkpoints/
+**/_build/
+archivo/
+proyecto_salud/datos/*.CSV
+proyecto_salud/datos/*.csv
+**/.Rproj.user/
+**/.Rhistory
+**/.RData
+**/.Ruserdata
+curso/R_Studio/**/data/

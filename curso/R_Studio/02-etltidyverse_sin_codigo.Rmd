@@ -1,0 +1,267 @@
+# ETL con Tidyverse {#etltidyverse}
+
+El **Tidyverse** es un conjunto de paquetes integrados para el lenguaje de programación R, diseñados con el objetivo de facilitar el análisis de datos de manera estructurada, legible y eficiente. Su filosofía se basa en el concepto de **"datos ordenados" (tidy data)**, donde cada variable es una columna, cada observación una fila, y cada tipo de unidad observacional forma una tabla.
+
+Estos paquetes comparten principios de diseño comunes y una gramática coherente, lo que permite a los usuarios aprender un conjunto de reglas aplicables en todo el ecosistema, aumentando así la productividad y la claridad del código.
+
+```{r tidy-fig, fig.cap='Paquetes de tidyverse',echo=FALSE, out.width='70%', fig.asp=.75, fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/tidypacsinfondo.png")
+```
+
+## Data Frames
+
+<div class="admon-box definicion">
+  <div class="admon-title"><span class="icon"></span> Definición</div>
+  <p>Un <strong>data frame</strong> es una estructura de datos clave en estadística y en <strong>R</strong>.</p>
+</div>
+
+- La estructura básica de un data frame es que *hay una observación por fila y cada columna representa una variable, medida, rasgo o característica de esa observación*.  
+- **R** tiene una implementación interna de los data frames que probablemente es la que más se utiliza en la práctica.
+
+## Importación de datos
+
+<div class="admon-box nota">
+  <div class="admon-title"><span class="icon"></span> Fuentes de datos en R</div>
+  <p>
+  Los conjuntos de datos de gran tamaño, generalmente almacenados como <strong>data frames</strong> en <strong>R</strong>, suelen provenir de archivos externos.  
+  Existen múltiples tipos de archivos que pueden importarse, entre ellos:  
+  </p>
+  <ul>
+    <li><strong>Archivos de texto</strong> en formatos como <code>csv</code>, <code>txt</code>, <code>html</code> y <code>json</code>.</li>
+    <li>Salidas de software estadístico como <strong>SAS</strong> y <strong>SPSS</strong>.</li>
+    <li>Recursos en línea como páginas <strong>html</strong> y servicios web.</li>
+    <li><strong>Bases de datos relacionales y no relacionales</strong>.</li>
+  </ul>
+  <p>
+  El ecosistema <strong>Tidyverse</strong> ofrece funciones que permiten importar y gestionar estas diversas fuentes de datos de manera sencilla y eficiente.
+  </p>
+</div>
+
+### Uso de `readr` de tidyverse
+
+- Veamos el siguiente ejemplo. Carguemos los siguientes datos:
+
+```{r n8,message=FALSE,warning=FALSE}
+library(tidyverse)
+
+# CSV con punto decimal y encabezados
+df <- # TU CODIGO AQUI
+
+# TU CODIGO AQUI
+```
+
+
+## Transformación de datos
+- Antes de realizar un análisis de datos en **R**, con frecuencia es necesario manipular o transformar la información de distintas formas.  
+  Para ello, el paquete **dplyr**, que hace parte del ecosistema **tidyverse**, ofrece un conjunto de funciones que facilitan la transformación y manejo de datos de manera eficiente y estructurada.  
+
+- En esta sección abordaremos los siguientes aspectos fundamentales:  
+
+  - Filtrar registros para obtener subconjuntos de datos  
+  - Seleccionar y limitar columnas específicas  
+  - Ordenar filas en forma ascendente o descendente  
+  - Incorporar nuevas filas a un conjunto existente  
+  - Resumir y agrupar información  
+  - Utilizar canalización (*pipes*) para mejorar la legibilidad y eficiencia del código  
+
+### El  paquete `dplyr`
+
+
+### Filtrar datos para crear un subconjunto
+
+
+* Crear un subconjunto de registros que contenga sólo los incendios forestales de más de $25000$ acres.
+
+```{r ejerc_1, message=FALSE,warning=FALSE,results='hide'}
+library(tidyverse)
+
+# TU CODIGO AQUI
+```
+
+* Crear un subconjunto de registros que contenga sólo los incendios forestales de más de $1000$ acres en el año $2016$.
+
+```{r ejerc_2, message=FALSE,warning=FALSE,results='hide'}
+df %>% 
+  filter(# TU CODIGO AQUI)
+```
+
+* Crear un subconjunto de registros que contenga sólo los incendios forestales de más de $1000$ acres en el año $2016$, pero usa el operador `&`.
+
+```{r ejerc_3, message=FALSE,warning=FALSE,results='hide'}
+df %>% 
+  filter(# TU CODIGO AQUI)
+```
+
+* Crear un subconjunto de registros que contenga sólo los años $2010$, $2011$ y $2012$
+
+```{r ejerc_4, message=FALSE,warning=FALSE,results='hide'}
+df %>% 
+  filter(# TU CODIGO AQUI)
+```
+
+### Acotar la lista de columnas con `select()`
+
+
+Continuando con el ejemplo de las incendios forestales
+
+- Selecciona las columnas `FIRENAME`, `TOTALACRES`, `YEAR_`
+
+```{r ejerc_5, message=FALSE,warning=FALSE,results='hide'}
+df %>% 
+  # TU CODIGO AQUI
+```
+
+- Selecciona las columnas `FIRENAME`, `TOTALACRES`, `YEAR_`, cambian el nombre de `TOTALACRES` por `ACRES` y `YEAR_` por `YR`.
+
+```{r ejerc_6, message=FALSE,warning=FALSE,results='hide'}
+df %>% 
+  # TU CODIGO AQUI
+```
+
+- Selecciona las columnas que contengan la palabra `DATE`
+
+```{r ejerc_7, message=FALSE,warning=FALSE,results='hide'}
+df %>% 
+  # TU CODIGO AQUI
+```
+
+- Selecciona las columnas que contengan la palabra `DATE` y también inicien con `TOTAL`
+
+```{r ejerc_8, message=FALSE,warning=FALSE,results='hide'}
+df %>% 
+  # TU CODIGO AQUI
+```
+
+
+### Organizar las filas
+
+Continuando con el ejemplo de los incendios forestales
+
+- Filtrar el conjunto de datos para que contenga solo los incendios de más de 1.000 acres quemados del año 2016. Despues selecciona las columnas `FIRENAME`, `TOTALACRES`, `YEAR_` y renombralas `NAME`,  `ACRES`, `YR`, respectivamente. Finalmente, ordena `ACRES` de forma ascendente y muestrame las 5 ultimas.
+
+```{r ejerc_9, message=FALSE,warning=FALSE}
+df %>% 
+  filter(TOTALACRES > 1000,YEAR_ == 2016) %>% 
+  # TU CODIGO AQUI %>% 
+  # TU CODIGO AQUI %>% 
+  tail(n=5)
+```
+
+
+- Filtrar el conjunto de datos para que contenga solo los incendios de más de 2.000 acres quemados del año 2016. Despues selecciona las columnas `FIRENAME`, `TOTALACRES`, `YEAR_` y renombralas `NAME`,  `ACRES`, `YR`, respectivamente. Finalmente, ordena `ACRES` de forma descendente y muestrame las 5 primeras.
+
+```{r ejerc_10, message=FALSE,warning=FALSE}
+df %>% 
+  filter(TOTALACRES > 2000,YEAR_ == 2016) %>% 
+  select(NAME = FIRENAME,ACRES = TOTALACRES,YR=YEAR_) %>% 
+  # TU CODIGO AQUI %>% 
+  head(n=5)
+```
+
+### Añadir columnas con `mutate`
+
+
+Continuando con el ejemplo de los incendios forestales
+
+- Seleccione únicamente las columnas **ORGANIZATI**, **STATE**, **YEAR_**, **TOTALACRES**, **CAUSE** y **STARTDATED**, filtre los registros para que solo se incluyan los incendios con más de **1.000 acres** quemados y cuya causa sea **Humana** o **Natural**, cree una nueva columna llamada **DOY** que indique el día del año en que inició cada incendio a partir de la columna **STARTDATED**, y finalmente muestre las primeras filas del resultado.
+
+Carguemos nuevamente los datos
+
+```{r ejerc_11, message=FALSE,warning=FALSE}
+df %>% 
+  # TU CODIGO AQUI -> df_sol
+```
+
+### Agrupación y resumen de los datos
+
+
+Continuando con el ejemplo de incendios forestales
+
+- Seleccione únicamente las columnas **ORGANIZATI**, **STATE**, **YEAR_**, **TOTALACRES** y **CAUSE** , filtre los registros para que solo se incluyan los incendios con más de **1.000 acres** quemados, cree una nueva columna llamada **DECADE** que define la década en la que se produjo cada incendio, agrupa por**DECADE** y finalmente un resumen numérico completo del tamaño de los incendios forestales por década.
+
+```{r ejerc_12, message=FALSE,warning=FALSE}
+df %>% 
+  select(ORGANIZATI,STATE,YEAR_,TOTALACRES,CAUSE) %>% 
+  filter(TOTALACRES > 1000) %>% 
+  mutate(DECADE = ifelse(YEAR_ %in% 1980:1989,'1980-1989',
+                         ifelse(YEAR_ %in% 1990:1999,'1990-1999',
+                                ifelse(YEAR_ %in% 2000:2009,'2000-2009',
+                                       ifelse(YEAR_ %in% 2010:2016,'2010-2016','99'))))) %>% 
+  # TU CODIGO AQUI %>% 
+  # TU CODIGO AQUI -> df_sol_2
+
+# Vista rápida
+knitr::kable(df_sol_2)
+```
+
+
+
+
+## Ordenación de datos
+
+La ordenación de datos es una forma coherente de organizar los datos en R y puede facilitarse a través del paquete `tidyr` que se encuentra en el ecosistema `tidyverse`.  
+  Hay tres reglas que podemos seguir para hacer un conjunto de datos ordenado:
+
+
+### Recopilación 
+
+
+
+- A continuación, tendrás que **nombrar la variable de la nueva columna**. Esto también se llama la clave `key`, y en este caso será la variable del año (`year`). Por último, tendrás que proporcionar el valor `value`, que es el **nombre de la variable cuyos valores se reparten por las celdas**.
+
+
+- Carguemos los datos 
+
+```{r data_gather,message=FALSE,warning=FALSE}
+library(tidyverse)
+
+df = # TU CODIGO AQUI
+head(df,n=5)
+```
+
+- Utilice la función `gather` como se ve a continuación
+
+```{r data_gather_2,message=FALSE,warning=FALSE}
+df2 = # TU CODIGO AQUI
+knitr::kable(head(df2, 5))
+```
+
+
+
+### Distribución
+
+```{r dev,message=FALSE,warning=FALSE}
+# Instalar 
+# install.packages("devtools")
+# devtools::install_github("garrettgman/DSR")
+library(devtools)
+```
+
+- Tomemos los datos de `table2`:
+
+```{r tabla2, message=FALSE, warning=FALSE}
+knitr::kable(head(table2))
+```
+
+- Utilice la función `spread()` para corregir este problema.
+
+```{r tabla3, message=FALSE, warning=FALSE}
+table2b = # TU CODIGO AQUI
+knitr::kable(head(table2b))
+```
+
+### Separación
+
+
+```{r tabla5, message=FALSE, warning=FALSE}
+df2 = # TU CODIGO AQUI
+knitr::kable(head(df2, 5))
+```
+
+### Unión
+
+```{r datadata,message=FALSE,warning=FALSE}
+df3 = # TU CODIGO AQUI
+knitr::kable(head(df3, 5))
+```
+

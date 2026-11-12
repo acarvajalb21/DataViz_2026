@@ -1,0 +1,23 @@
+[
+  {
+    "nombre": "curso_dash",
+    "ruta": "curso/DASH/.venv",
+    "pip_ejecutable": "pip 26.3 from C:\\Users\\USUARIO\\Documents\\DataViz_2026\\curso\\DASH\\.venv\\Lib\\site-packages\\pip (python 3.13)",
+    "jupyter_book_ejecutable": null,
+    "pip_check": "correcto"
+  },
+  {
+    "nombre": "curso_libro",
+    "ruta": "curso/jbook_dataviz_2026/.venv",
+    "pip_ejecutable": "pip 26.3 from C:\\Users\\USUARIO\\Documents\\DataViz_2026\\curso\\jbook_dataviz_2026\\.venv\\Lib\\site-packages\\pip (python 3.11)",
+    "jupyter_book_ejecutable": "Jupyter Book      : 0.15.1\nExternal ToC      : 0.3.1\nMyST-Parser       : 0.18.1\nMyST-NB           : 0.17.2\nSphinx Book Theme : 1.0.1\nJupyter-Cache     : 0.6.1\nNbClient          : 0.7.4",
+    "pip_check": "correcto"
+  },
+  {
+    "nombre": "curso_credito",
+    "ruta": "curso/SEMANA_11/app_dash/.venv",
+    "pip_ejecutable": "pip 26.3 from C:\\Users\\USUARIO\\Documents\\DataViz_2026\\curso\\SEMANA_11\\app_dash\\.venv\\Lib\\site-packages\\pip (python 3.11)",
+    "jupyter_book_ejecutable": null,
+    "pip_check": "correcto"
+  }
+]

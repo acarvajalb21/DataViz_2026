@@ -1,0 +1,18 @@
+if (.Platform$OS.type == "windows") {
+  try(Sys.setlocale("LC_CTYPE", "English_United States.utf8"), silent = TRUE)
+  pandoc_dir <- file.path(Sys.getenv("LOCALAPPDATA"), "Programs/RStudio/resources/app/bin/quarto/bin/tools")
+  if (file.exists(file.path(pandoc_dir, "pandoc.exe")) &&
+      !nzchar(Sys.getenv("RSTUDIO_PANDOC"))) {
+    Sys.setenv(RSTUDIO_PANDOC = pandoc_dir)
+  }
+}
+
+if (!requireNamespace("bookdown", quietly = TRUE)) {
+  stop("Falta bookdown. Instálelo con install.packages('bookdown').")
+}
+
+bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook")
+
+# style.css usa la misma fuente que la aplicación Shiny.
+dir.create("docs/fonts", showWarnings = FALSE)
+file.copy(list.files("../shiny_salud/www/fonts", full.names = TRUE), "docs/fonts", overwrite = TRUE)

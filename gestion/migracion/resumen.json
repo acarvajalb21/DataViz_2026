@@ -1,0 +1,16 @@
+{
+  "archivos_importados": 538,
+  "omitidos": {
+    "copias_repositorios": 605,
+    "bibliotecas_y_cache": 2020,
+    "dependencias_duplicadas": 133
+  },
+  "archivos_anteriores_indexados": 5498,
+  "contenidos_locales_unicos": 1150,
+  "comparacion_anterior": {
+    "missing": 2,
+    "identical": 483,
+    "different": 12
+  },
+  "zip_original_sha256": "c9070ee82ba966be73869e2cc924a33aae0bc1578494dca69a6c1935140aeafd"
+}

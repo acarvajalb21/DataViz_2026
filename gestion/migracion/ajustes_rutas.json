@@ -1,0 +1,16 @@
+[
+  "README.md",
+  "bookdown_salud/08-aplicacion-shiny.Rmd",
+  "bookdown_salud/README.md",
+  "bookdown_salud/build_bookdown.R",
+  "bookdown_salud/scripts/preparar_auditoria.py",
+  "bookdown_salud/scripts/preparar_resumen.py",
+  "dash_salud/README.md",
+  "dash_salud/generar_contenido.py",
+  "dash_salud/generar_datos.py",
+  "jupyter_salud/EDA_acceso_salud_Atlantico_CNPV2018.ipynb",
+  "jupyter_salud/Modelo_acceso_salud_Atlantico_CNPV2018.ipynb",
+  "jupyter_salud/README.md",
+  "shiny_salud/README.md",
+  "shiny_salud/pruebas/pruebas.R"
+]

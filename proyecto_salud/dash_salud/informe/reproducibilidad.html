@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 7 Reproducibilidad y fuentes | Acceso formal a salud en el Atlántico</title>
+  <meta name="description" content="Análisis descriptivo y evaluación interna de un modelo para una etiqueta operativa de acceso formal a salud en el Atlántico." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 7 Reproducibilidad y fuentes | Acceso formal a salud en el Atlántico" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Análisis descriptivo y evaluación interna de un modelo para una etiqueta operativa de acceso formal a salud en el Atlántico." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 7 Reproducibilidad y fuentes | Acceso formal a salud en el Atlántico" />
+  
+  <meta name="twitter:description" content="Análisis descriptivo y evaluación interna de un modelo para una etiqueta operativa de acceso formal a salud en el Atlántico." />
+  
+
+<meta name="author" content="Alejandro Carvajal y Mateo Chang" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="conclusiones.html"/>
+<link rel="next" href="shiny.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.12.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+<script src="libs/plotly-locale-es-2.25.2/es.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Acceso formal a salud · Atlántico</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Presentación</a></li>
+<li class="chapter" data-level="1" data-path="pregunta.html"><a href="pregunta.html"><i class="fa fa-check"></i><b>1</b> Pregunta, población y variable objetivo</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="pregunta.html"><a href="pregunta.html#qu%C3%A9-intenta-responder-el-proyecto"><i class="fa fa-check"></i><b>1.1</b> Qué intenta responder el proyecto</a></li>
+<li class="chapter" data-level="1.2" data-path="pregunta.html"><a href="pregunta.html#a-qui%C3%A9n-se-estudia"><i class="fa fa-check"></i><b>1.2</b> A quién se estudia</a></li>
+<li class="chapter" data-level="1.3" data-path="pregunta.html"><a href="pregunta.html#etiqueta"><i class="fa fa-check"></i><b>1.3</b> Regla operativa de acceso</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="datos-metodo.html"><a href="datos-metodo.html"><i class="fa fa-check"></i><b>2</b> Datos y método</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="datos-metodo.html"><a href="datos-metodo.html#archivos-y-unidad-de-an%C3%A1lisis"><i class="fa fa-check"></i><b>2.1</b> Archivos y unidad de análisis</a></li>
+<li class="chapter" data-level="2.2" data-path="datos-metodo.html"><a href="datos-metodo.html#diccionario-de-predictores"><i class="fa fa-check"></i><b>2.2</b> Diccionario de predictores</a></li>
+<li class="chapter" data-level="2.3" data-path="datos-metodo.html"><a href="datos-metodo.html#qu%C3%A9-se-excluy%C3%B3-para-reducir-fuga-de-informaci%C3%B3n"><i class="fa fa-check"></i><b>2.3</b> Qué se excluyó para reducir fuga de información</a></li>
+<li class="chapter" data-level="2.4" data-path="datos-metodo.html"><a href="datos-metodo.html#separaci%C3%B3n-y-preprocesamiento"><i class="fa fa-check"></i><b>2.4</b> Separación y preprocesamiento</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="calidad.html"><a href="calidad.html"><i class="fa fa-check"></i><b>3</b> Calidad de los datos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="calidad.html"><a href="calidad.html#comprobaciones-antes-de-analizar"><i class="fa fa-check"></i><b>3.1</b> Comprobaciones antes de analizar</a></li>
+<li class="chapter" data-level="3.2" data-path="calidad.html"><a href="calidad.html#faltantes-y-c%C3%B3digos-de-no-respuesta"><i class="fa fa-check"></i><b>3.2</b> Faltantes y códigos de no respuesta</a></li>
+<li class="chapter" data-level="3.3" data-path="calidad.html"><a href="calidad.html#controles-que-siguen-siendo-necesarios"><i class="fa fa-check"></i><b>3.3</b> Controles que siguen siendo necesarios</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploracion.html"><a href="exploracion.html"><i class="fa fa-check"></i><b>4</b> Exploración descriptiva</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exploracion.html"><a href="exploracion.html#de-qu%C3%A9-est%C3%A1-hecha-la-clasificaci%C3%B3n"><i class="fa fa-check"></i><b>4.1</b> De qué está hecha la clasificación</a></li>
+<li class="chapter" data-level="4.2" data-path="exploracion.html"><a href="exploracion.html#dificultad-funcional"><i class="fa fa-check"></i><b>4.2</b> Dificultad funcional</a></li>
+<li class="chapter" data-level="4.3" data-path="exploracion.html"><a href="exploracion.html#edad-y-sexo-mirar-dentro-de-los-grupos"><i class="fa fa-check"></i><b>4.3</b> Edad y sexo: mirar dentro de los grupos</a></li>
+<li class="chapter" data-level="4.4" data-path="exploracion.html"><a href="exploracion.html#territorio-y-condiciones-de-vivienda"><i class="fa fa-check"></i><b>4.4</b> Territorio y condiciones de vivienda</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="modelo.html"><a href="modelo.html"><i class="fa fa-check"></i><b>5</b> Modelo predictivo y evaluación</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="modelo.html"><a href="modelo.html#pregunta-predictiva-y-criterio-de-%C3%A9xito"><i class="fa fa-check"></i><b>5.1</b> Pregunta predictiva y criterio de éxito</a></li>
+<li class="chapter" data-level="5.2" data-path="modelo.html"><a href="modelo.html#candidatos-y-elecci%C3%B3n"><i class="fa fa-check"></i><b>5.2</b> Candidatos y elección</a></li>
+<li class="chapter" data-level="5.3" data-path="modelo.html"><a href="modelo.html#curvas-calibraci%C3%B3n-y-umbral"><i class="fa fa-check"></i><b>5.3</b> Curvas, calibración y umbral</a></li>
+<li class="chapter" data-level="5.4" data-path="modelo.html"><a href="modelo.html#variables-relevantes-y-diferencias-entre-grupos"><i class="fa fa-check"></i><b>5.4</b> Variables relevantes y diferencias entre grupos</a></li>
+<li class="chapter" data-level="5.5" data-path="modelo.html"><a href="modelo.html#revision-modelo-2026"><i class="fa fa-check"></i><b>5.5</b> Revisión adicional del modelo en 2026</a></li>
+<li class="chapter" data-level="5.6" data-path="modelo.html"><a href="modelo.html#modelo-contexto-2026"><i class="fa fa-check"></i><b>5.6</b> Modelo con contexto de salud (versión 2)</a>
+<ul>
+<li class="chapter" data-level="" data-path="modelo.html"><a href="modelo.html#qu%C3%A9-significan-estas-variables"><i class="fa fa-check"></i>Qué significan estas variables</a></li>
+<li class="chapter" data-level="" data-path="modelo.html"><a href="modelo.html#errores-y-diferencias-entre-grupos"><i class="fa fa-check"></i>Errores y diferencias entre grupos</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="modelo.html"><a href="modelo.html#alcance-de-la-prueba"><i class="fa fa-check"></i><b>5.7</b> Alcance de la prueba</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>6</b> Conclusiones y decisiones para el proyecto</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="conclusiones.html"><a href="conclusiones.html#lo-que-s%C3%AD-muestran-los-datos"><i class="fa fa-check"></i><b>6.1</b> Lo que sí muestran los datos</a></li>
+<li class="chapter" data-level="6.2" data-path="conclusiones.html"><a href="conclusiones.html#l%C3%ADmites-que-deben-acompa%C3%B1ar-cada-gr%C3%A1fico"><i class="fa fa-check"></i><b>6.2</b> Límites que deben acompañar cada gráfico</a></li>
+<li class="chapter" data-level="6.3" data-path="conclusiones.html"><a href="conclusiones.html#c%C3%B3mo-llevarlo-al-tablero-interactivo"><i class="fa fa-check"></i><b>6.3</b> Cómo llevarlo al tablero interactivo</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="reproducibilidad.html"><a href="reproducibilidad.html"><i class="fa fa-check"></i><b>7</b> Reproducibilidad y fuentes</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="reproducibilidad.html"><a href="reproducibilidad.html#origen-de-las-cifras"><i class="fa fa-check"></i><b>7.1</b> Origen de las cifras</a></li>
+<li class="chapter" data-level="7.2" data-path="reproducibilidad.html"><a href="reproducibilidad.html#volver-a-generar-el-libro"><i class="fa fa-check"></i><b>7.2</b> Volver a generar el libro</a></li>
+<li class="chapter" data-level="7.3" data-path="reproducibilidad.html"><a href="reproducibilidad.html#referencias"><i class="fa fa-check"></i><b>7.3</b> Referencias</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="shiny.html"><a href="shiny.html"><i class="fa fa-check"></i><b>8</b> Aplicación Shiny</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="shiny.html"><a href="shiny.html#datos-que-usa"><i class="fa fa-check"></i><b>8.1</b> Datos que usa</a></li>
+<li class="chapter" data-level="8.2" data-path="shiny.html"><a href="shiny.html#reglas-de-protecci%C3%B3n"><i class="fa fa-check"></i><b>8.2</b> Reglas de protección</a></li>
+<li class="chapter" data-level="8.3" data-path="shiny.html"><a href="shiny.html#c%C3%B3mo-funciona-la-reactividad"><i class="fa fa-check"></i><b>8.3</b> Cómo funciona la reactividad</a></li>
+<li class="chapter" data-level="8.4" data-path="shiny.html"><a href="shiny.html#dise%C3%B1o"><i class="fa fa-check"></i><b>8.4</b> Diseño</a></li>
+<li class="chapter" data-level="8.5" data-path="shiny.html"><a href="shiny.html#comprobaciones"><i class="fa fa-check"></i><b>8.5</b> Comprobaciones</a></li>
+<li class="chapter" data-level="8.6" data-path="shiny.html"><a href="shiny.html#despliegue"><i class="fa fa-check"></i><b>8.6</b> Despliegue</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Acceso formal a salud en el Atlántico</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="reproducibilidad" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Capítulo 7</span> Reproducibilidad y fuentes<a href="reproducibilidad.html#reproducibilidad" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="origen-de-las-cifras" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Origen de las cifras<a href="reproducibilidad.html#origen-de-las-cifras" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este Bookdown parte de cuatro archivos originales del CNPV 2018 del Atlántico (personas, hogares, viviendas y <code>MGN</code>), almacenados fuera de esta carpeta. La función <code>load_data</code> de <code>ml_salud.entrenar</code> aplica la misma regla de etiqueta y las mismas uniones usadas en el experimento. <code>scripts/preparar_resumen.py</code> recalcula las tablas y figuras descriptivas, verifica las huellas SHA-256 de los CSV frente a <code>ml_salud/resultados/resultados.json</code> y detiene la ejecución si difieren. También vuelve a calcular ROC-AUC, AP y Brier de la prueba a partir del artefacto serializado antes de dibujar las curvas.</p>
+<table>
+<caption><span id="tab:huellas">Tabla 7.1: </span>Huellas de los CSV usados para generar este informe y el modelo auditado.</caption>
+<colgroup>
+<col width="26%" />
+<col width="73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Archivo fuente</th>
+<th align="left">SHA-256</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">CNPV2018_5PER_A2_08.CSV</td>
+<td align="left">e55981e90717fa238550f332b5a76334dd1854427cd8f161eff151f00b239bab</td>
+</tr>
+<tr class="even">
+<td align="left">CNPV2018_2HOG_A2_08.CSV</td>
+<td align="left">e4ab3a377decabcc3eaa935643770f262aa48d8ce85bc7559c485a33c68a9cc9</td>
+</tr>
+<tr class="odd">
+<td align="left">CNPV2018_1VIV_A2_08.CSV</td>
+<td align="left">428ee27091e9c6ef8a052f130fd0f5cc0a766ad11e9f90b978ce89a0423c453d</td>
+</tr>
+<tr class="even">
+<td align="left">CNPV2018_MGN_A2_08.CSV</td>
+<td align="left">fffaef93c140ad37ac695e2ee848ece9c5b3d0d8286333a577671b69015ff8e6</td>
+</tr>
+</tbody>
+</table>
+<p>Los CSV incluidos en las fuentes <code>data/</code> son cuadros agregados y resúmenes técnicos, nunca registros de persona. Para combinaciones de edad o sexo con dificultad y para municipios, el generador descarta celdas con menos de 30 personas o menos de cinco observaciones en cualquiera de las clases. El HTML final contiene los cuadros y gráficos necesarios para leer el informe y no requiere publicar los CSV. La visualización interactiva aplica supresiones y redondeos adicionales. Las figuras del HTML se dibujan con esos cuadros al compilar el libro (<code>R/graficos_libro.R</code>); las imágenes de <code>figures/</code> son su versión estática para otros formatos y se regeneran con el mismo script.</p>
+<p>El desarrollo del modelo se puede seguir paso a paso en el <a href="https://github.com/acarvajalb21/EDAPYTHON/blob/main/Modelo_acceso_salud_Atlantico_CNPV2018.ipynb">cuaderno Jupyter</a> del proyecto. El detalle de entrenamiento, búsqueda de parámetros, validación y sensibilidad está en <code>ml_salud/entrenar.py</code>, <code>ml_salud/auditoria_sensibilidad.py</code> y <code>ml_salud/resultados/INFORME_MODELO.md</code>. El archivo <code>ml_salud/resultados/resultados.json</code> conserva todos los valores, versiones y parámetros que alimentan los cuadros de este libro. La versión 1 queda sin cambios en <code>ml_salud/resultados_v1/</code>, y el protocolo y la decisión de la versión 2 en <code>ml_salud/experimento_contexto/</code>. La carpeta Bookdown contiene las fuentes R Markdown, la configuración de salida y los productos agregados para leer el informe sin disponer de los microdatos.</p>
+</div>
+<div id="volver-a-generar-el-libro" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Volver a generar el libro<a href="reproducibilidad.html#volver-a-generar-el-libro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para leer el libro no hace falta ejecutar nada: basta con abrir <code>docs/index.html</code> o la versión publicada. Los pasos siguientes se ejecutan desde la raíz de este repositorio (EDAR).</p>
+<p>Para regenerar las tablas y figuras se necesitan los cuatro CSV departamentales del DANE y un entorno Python con las dependencias de <code>ml_salud/requirements.txt</code>:</p>
+<pre class="text"><code>python scripts/preparar_resumen.py --data-dir &quot;RUTA/A/LOS/CSV_DANE&quot;
+python scripts/preparar_auditoria.py</code></pre>
+<p>El segundo script no usa microdatos: lee los resultados guardados en <code>ml_salud/experimentos_2026_10/salidas/</code> y actualiza los cuadros de la revisión de 2026.</p>
+<p>Para recompilar el HTML se necesitan R, Pandoc y los paquetes <code>bookdown</code>, <code>rmarkdown</code>, <code>knitr</code> y <code>plotly</code>:</p>
+<pre class="text"><code>Rscript build_bookdown.R</code></pre>
+<p>El script escribe el libro en <code>docs/</code>, la carpeta que publica GitHub Pages; en Windows usa el Pandoc incluido con RStudio si no encuentra otro. Si existe una carpeta local <code>.bookdown-library</code>, <code>.Rprofile</code> la antepone a las bibliotecas de R; es opcional y no forma parte del entregable. Después de recompilar, la copia integrada en el tablero (<code>dash_salud/informe/</code> en EDAPYTHON) debe reemplazarse por el contenido de <code>docs/</code>.</p>
+</div>
+<div id="referencias" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Referencias<a href="reproducibilidad.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>DANE, <a href="https://microdatos.dane.gov.co/catalog/643">ficha y catálogo del CNPV 2018</a>.</li>
+<li>DANE, <a href="https://microdatos.dane.gov.co/index.php/catalog/643/variable/F11/V581?name=P_ENFERMO"><code>P_ENFERMO</code>: problema de salud en los últimos 30 días sin hospitalización</a>.</li>
+<li>DANE, <a href="https://microdatos.dane.gov.co/index.php/catalog/643/variable/F11/V582?name=P_QUEHIZO_PPAL"><code>P_QUEHIZO_PPAL</code>: tratamiento principal declarado</a>.</li>
+<li>DANE, <a href="https://microdatos.dane.gov.co/index.php/catalog/643/variable/F11/V583?name=PA_LO_ATENDIERON"><code>PA_LO_ATENDIERON</code>: respuesta sobre atención en la entidad</a>.</li>
+<li>DANE, <a href="https://microdatos.dane.gov.co/index.php/catalog/643/variable/F11/V576?name=P_EDADR"><code>P_EDADR</code>: grupos quinquenales de edad</a>.</li>
+<li>DANE, <a href="https://microdatos.dane.gov.co/index.php/catalog/643/variable/F11/V585?name=CONDICION_FISICA"><code>CONDICION_FISICA</code>: dificultad para actividades diarias</a>.</li>
+<li>DANE, <a href="https://microdatos.dane.gov.co/index.php/catalog/643/variable/V532?name=VA1_ESTRATO"><code>VA1_ESTRATO</code>: estrato de la vivienda según el servicio de energía</a>.</li>
+<li>Levesque, J.-F., Harris, M. F. y Russell, G. (2013). <a href="https://doi.org/10.1186/1475-9276-12-18">Patient-centred access to health care: conceptualising access at the interface of health systems and populations</a>. <em>International Journal for Equity in Health</em>, 12, 18.</li>
+<li>Saito, T. y Rehmsmeier, M. (2015). <a href="https://doi.org/10.1371/journal.pone.0118432">The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets</a>. <em>PLoS ONE</em>, 10(3), e0118432.</li>
+<li>scikit-learn. <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html"><code>average_precision_score</code></a>. Documentación de la versión 1.9.1, consultada el 2 de noviembre de 2026.</li>
+<li>scikit-learn. <a href="https://scikit-learn.org/stable/modules/permutation_importance.html">Permutation feature importance</a>. Documentación de la versión 1.9.1, consultada el 2 de noviembre de 2026.</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="conclusiones.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="shiny.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": false,
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

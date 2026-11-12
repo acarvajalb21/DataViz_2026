@@ -1,0 +1,32 @@
+# Microdatos del censo: se descargan del DANE (ver README.md)
+datos/*.CSV
+datos/*.csv
+*.CSV
+*.csv
+!dashboard/data/*.csv
+!data/*.csv
+!ml_salud/experimentos_2026_10/salidas/*.csv
+*.zip
+
+# Salidas que se regeneran al knitear (solo en la raíz: las salidas de
+# ml_salud/experimentos_2026_10/ sí se versionan para regenerar la auditoría)
+/salidas/
+
+# Jupyter Book / MyST
+_build/
+.myst.session.json
+node_modules/
+
+# R / RStudio
+.Rproj.user/
+.bookdown-library/
+.venv/
+.r-lib/
+__pycache__/
+.Rhistory
+.RData
+.Ruserdata
+
+# Sistema
+.DS_Store
+Thumbs.db

@@ -1,0 +1,15 @@
+.git/
+__pycache__/
+*.pyc
+*.csv
+*.joblib
+*.pkl
+*.ipynb
+*.zip
+generar_datos.py
+generar_relato.py
+generar_contenido.py
+generar_conocimiento.py
+pruebas_asistente.py
+pruebas.py
+.venv/

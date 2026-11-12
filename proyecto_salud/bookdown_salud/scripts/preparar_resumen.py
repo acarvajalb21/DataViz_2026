@@ -1,0 +1,570 @@
+"""Genera tablas y figuras agregadas para el Bookdown, sin exportar microdatos.
+
+Ejecutar desde la raíz EDAR:
+    python scripts/preparar_resumen.py --data-dir RUTA_CSV_DANE
+
+Requiere además ``CNPV2018_MGN_A2_08.CSV`` para las variables de contexto.
+Reutiliza exactamente la construcción de la etiqueta y las uniones auditadas en
+``ml_salud.entrenar.load_data``. Verifica que los CSV correspondan a los usados
+por el experimento antes de combinar resultados descriptivos y predictivos.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+import joblib
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.ticker import FuncFormatter, ScalarFormatter
+import numpy as np
+import pandas as pd
+from sklearn.metrics import average_precision_score, brier_score_loss, precision_recall_curve
+from sklearn.metrics import roc_auc_score, roc_curve
+
+
+BOOK = Path(__file__).resolve().parents[1]
+ROOT = BOOK.parent
+sys.path.insert(0, str(ROOT))
+
+from ml_salud.contexto import FEATURES_V2  # noqa: E402
+from ml_salud.entrenar import group_ids, load_data, split_three  # noqa: E402
+
+
+DEFAULT_DATA_DIR = ROOT / "datos"
+DATA = BOOK / "data"
+FIGURES = BOOK / "figures"
+RESULTS = ROOT / "ml_salud" / "resultados"
+RESULTS_V1 = ROOT / "ml_salud" / "resultados_v1"
+CONTEXT = ROOT / "ml_salud" / "experimento_contexto" / "salidas"
+
+# Tokens de la gama «Petróleo» (shiny_salud/DISENO.md).
+# Río y arcilla son las dos clases; añil y ocre comparan grupos.
+RIO = "#1B6CA8"
+ARCILLA = "#DD6B20"
+ANIL = "#5B6FB5"
+OCRE = "#A86C00"
+BASE_GRIS = "#A9B6C1"
+INK = "#10293B"
+MUTED = "#54697A"
+GRID = "#D9E1E7"
+HOJA = "#F7F9FB"
+
+AGE_LABELS = {
+    1: "0–4", 2: "5–9", 3: "10–14", 4: "15–19", 5: "20–24",
+    6: "25–29", 7: "30–34", 8: "35–39", 9: "40–44", 10: "45–49",
+    11: "50–54", 12: "55–59", 13: "60–64", 14: "65–69", 15: "70–74",
+    16: "75–79", 17: "80–84", 18: "85–89", 19: "90–94", 20: "95–99",
+    21: "100 o más",
+}
+MUNICIPALITIES = {
+    1: "Barranquilla", 78: "Baranoa", 137: "Campo de la Cruz",
+    141: "Candelaria", 296: "Galapa", 372: "Juan de Acosta",
+    421: "Luruaco", 433: "Malambo", 436: "Manatí",
+    520: "Palmar de Varela", 549: "Piojó", 558: "Polonuevo",
+    560: "Ponedera", 573: "Puerto Colombia", 606: "Repelón",
+    634: "Sabanagrande", 638: "Sabanalarga", 675: "Santa Lucía",
+    685: "Santo Tomás", 758: "Soledad", 770: "Suan",
+    832: "Tubará", 849: "Usiacurí",
+}
+FEATURE_LABELS = {
+    "U_MPIO": ("Municipio", "Territorio", "Categórica"),
+    "UA_CLASE": ("Clase de área censal", "Territorio", "Categórica"),
+    "P_SEXO": ("Sexo registrado", "Persona", "Categórica"),
+    "P_EDADR": ("Grupo quinquenal de edad", "Persona", "Ordinal"),
+    "P_PARENTESCOR": ("Parentesco con la jefatura del hogar", "Persona", "Categórica"),
+    "PA1_GRP_ETNIC": ("Autorreconocimiento étnico", "Persona", "Categórica"),
+    "CONDICION_FISICA": ("Alguna dificultad funcional diaria", "Persona", "Categórica"),
+    "P_ALFABETA": ("Sabe leer y escribir", "Persona", "Categórica"),
+    "P_NIVEL_ANOSR": ("Nivel educativo registrado", "Persona", "Ordinal"),
+    "P_EST_CIVIL": ("Estado civil", "Persona", "Categórica"),
+    "H_NRO_CUARTOS": ("Cuartos del hogar", "Hogar", "Recuento"),
+    "H_NRO_DORMIT": ("Cuartos para dormir", "Hogar", "Recuento"),
+    "H_DONDE_PREPALIM": ("Lugar de preparación de alimentos", "Hogar", "Categórica"),
+    "H_AGUA_COCIN": ("Fuente de agua para cocinar", "Hogar", "Categórica"),
+    "HA_TOT_PER": ("Personas en el hogar", "Hogar", "Recuento"),
+    "V_TIPO_VIV": ("Tipo de vivienda", "Vivienda", "Categórica"),
+    "V_MAT_PARED": ("Material de las paredes", "Vivienda", "Categórica"),
+    "V_MAT_PISO": ("Material del piso", "Vivienda", "Categórica"),
+    "VA_EE": ("Energía eléctrica", "Vivienda", "Categórica"),
+    "VA1_ESTRATO": ("Estrato del recibo de energía", "Vivienda", "Ordinal"),
+    "VB_ACU": ("Acueducto", "Vivienda", "Categórica"),
+    "VC_ALC": ("Alcantarillado", "Vivienda", "Categórica"),
+    "VD_GAS": ("Gas natural", "Vivienda", "Categórica"),
+    "VE_RECBAS": ("Recolección de basuras", "Vivienda", "Categórica"),
+    "VF_INTERNET": ("Internet", "Vivienda", "Categórica"),
+    "V_TIPO_SERSA": ("Tipo de servicio sanitario", "Vivienda", "Categórica"),
+    "HOGAR_OTROS_ENFERMOS": ("Otras personas del hogar con problema de salud", "Contexto del hogar", "Recuento"),
+    "SECCION_PCT_ENFERMOS": ("Proporción con problema de salud en la sección censal, sin el propio hogar",
+                             "Contexto de la sección", "Proporción"),
+}
+
+
+def configure_plot() -> None:
+    plt.rcParams.update({
+        "font.family": "sans-serif", "font.sans-serif": ["Atkinson Hyperlegible Next", "DejaVu Sans"], "font.size": 10,
+        "axes.labelcolor": MUTED, "text.color": INK, "xtick.color": MUTED, "ytick.color": MUTED,
+        "axes.edgecolor": GRID, "axes.spines.top": False,
+        "axes.spines.right": False, "axes.titleweight": "normal",
+        "figure.facecolor": HOJA, "axes.facecolor": HOJA,
+        "savefig.facecolor": HOJA, "grid.color": GRID,
+    })
+
+
+def coma(valor: float, decimales: int = 3) -> str:
+    return f"{valor:.{decimales}f}".replace(".", ",")
+
+
+def numero_eje(valor: float, _posicion=None) -> str:
+    # Coma decimal y punto de miles desde 10.000, como en el texto del libro.
+    if float(valor).is_integer() and abs(valor) >= 10000:
+        return f"{valor:,.0f}".replace(",", ".")
+    return f"{valor:g}".replace(".", ",")
+
+
+def finish(fig: plt.Figure, name: str) -> None:
+    # Los ejes numéricos usan coma decimal; los de categorías no se tocan.
+    for ax in fig.axes:
+        for axis in (ax.xaxis, ax.yaxis):
+            if isinstance(axis.get_major_formatter(), ScalarFormatter):
+                axis.set_major_formatter(FuncFormatter(numero_eje))
+    fig.tight_layout(pad=1.8)
+    fig.savefig(FIGURES / name, dpi=180, bbox_inches="tight")
+    plt.close(fig)
+
+
+def aggregate(frame: pd.DataFrame, cols: list[str]) -> pd.DataFrame:
+    out = frame.groupby(cols, dropna=False, observed=True)["SIN_ACCESO"].agg(
+        n="size", sin_formal="sum"
+    ).reset_index()
+    out["con_formal"] = out["n"] - out["sin_formal"]
+    out["porcentaje_sin_formal"] = out["sin_formal"] / out["n"] * 100
+    return out
+
+
+def write_csv(name: str, frame: pd.DataFrame) -> None:
+    frame.to_csv(DATA / name, index=False, encoding="utf-8-sig", float_format="%.6f")
+
+
+def make_eda(frame: pd.DataFrame, source: dict, quality: dict) -> dict:
+    frame = frame.copy()
+    frame["grupo_edad"] = frame["P_EDADR"].map(AGE_LABELS)
+    frame["sexo"] = frame["P_SEXO"].map({1: "Hombre", 2: "Mujer"})
+    frame["dificultad"] = frame["CONDICION_FISICA"].map(
+        {1: "Con dificultad", 2: "Sin dificultad"}
+    )
+    frame["clase_area"] = frame["UA_CLASE"].map(
+        {1: "Cabecera", 2: "Centro poblado", 3: "Rural disperso"}
+    )
+    frame["municipio"] = frame["U_MPIO"].map(MUNICIPALITIES)
+    if frame["municipio"].isna().any():
+        raise AssertionError("Hay códigos de municipio sin nombre verificado")
+
+    total = len(frame)
+    positives = int(frame["SIN_ACCESO"].sum())
+    summary = {
+        **source,
+        "con_formal": total - positives,
+        "pct_sin_formal": positives / total * 100,
+        "pct_con_formal": (total - positives) / total * 100,
+    }
+    (DATA / "resumen_general.json").write_text(
+        json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    write_csv("resumen_general.csv", pd.DataFrame([{
+        "personas_censo": source["people"], "problema_salud": source["sick"],
+        "sin_etiqueta": source["unlabeled"], "cohorte": total,
+        "sin_formal": positives, "con_formal": total - positives,
+        "porcentaje_sin_formal": positives / total * 100,
+        "porcentaje_con_formal": (total - positives) / total * 100,
+        "union_hogar": source["house_match"], "union_vivienda": source["dwell_match"],
+    }]))
+    write_csv("huellas_archivos.csv", pd.DataFrame([
+        {"archivo": name, "sha256": digest}
+        for name, digest in source["source_sha256"].items()
+    ]))
+
+    label = pd.DataFrame([
+        ("EPS/entidad, atendido", source["label_breakdown"]["eps_atendido"], "Dentro de la ruta formal"),
+        ("Médico particular", source["label_breakdown"]["medico_particular"], "Dentro de la ruta formal"),
+        ("EPS/entidad, no atendido", source["label_breakdown"]["eps_no_atendido"], "Fuera de la ruta formal"),
+        ("Otras acciones o ninguna", source["label_breakdown"]["otras_acciones_o_ninguna"], "Fuera de la ruta formal"),
+    ], columns=["tratamiento_principal", "n", "clasificacion"])
+    label["porcentaje"] = label["n"] / total * 100
+    write_csv("composicion_etiqueta.csv", label)
+
+    groups = {
+        "dificultad": ["dificultad"],
+        "sexo": ["sexo"],
+        "sexo_dificultad": ["sexo", "dificultad"],
+        "edad": ["P_EDADR", "grupo_edad"],
+        "edad_dificultad": ["P_EDADR", "grupo_edad", "dificultad"],
+        "municipio": ["U_MPIO", "municipio"],
+        "clase_area": ["UA_CLASE", "clase_area"],
+        "estrato": ["VA1_ESTRATO"],
+    }
+    for name, cols in groups.items():
+        tab = aggregate(frame, cols)
+        if name in ("edad_dificultad", "sexo_dificultad"):
+            # No publicar celdas de combinaciones pequeñas, ni siquiera en CSV.
+            tab = tab.loc[(tab["n"] >= 30) & (tab["sin_formal"] >= 5)
+                          & (tab["con_formal"] >= 5)].copy()
+            tab["publicable"] = True
+        if name in ("municipio", "edad"):
+            tab = tab.loc[(tab["n"] >= 30) & (tab["sin_formal"] >= 5)
+                          & (tab["con_formal"] >= 5)].copy()
+        write_csv(f"{name}.csv", tab)
+
+    q = pd.DataFrame(quality["features"])
+    q["descripcion"] = q["feature"].map(lambda x: FEATURE_LABELS[x][0])
+    q = q.sort_values("pct", ascending=False)
+    write_csv("calidad_variables.csv", q)
+
+    dictionary = pd.DataFrame([
+        {"variable": feature, "descripcion": FEATURE_LABELS[feature][0],
+         "nivel": FEATURE_LABELS[feature][1], "escala": FEATURE_LABELS[feature][2]}
+        for feature in FEATURES_V2
+    ])
+    write_csv("diccionario_modelo.csv", dictionary)
+
+    # Los cuadros para publicación nunca incluyen filas individuales.
+    return summary
+
+
+def plot_eda(summary: dict) -> None:
+    lab = pd.read_csv(DATA / "composicion_etiqueta.csv")
+    fig, ax = plt.subplots(figsize=(8.3, 3.7))
+    labels = lab["tratamiento_principal"].tolist()[::-1]
+    vals = lab["n"].tolist()[::-1]
+    colors = [RIO if item == "Dentro de la ruta formal" else ARCILLA
+              for item in lab["clasificacion"].tolist()[::-1]]
+    ax.barh(labels, vals, color=colors, height=0.58)
+    for y, value in enumerate(vals):
+        ax.text(value + 1300, y, f"{value:,.0f}".replace(",", "."), va="center", fontsize=9)
+    ax.set_xlim(0, max(vals) * 1.18)
+    ax.set_xlabel("Personas")
+    ax.set_title("Composición de la etiqueta operativa", loc="left")
+    ax.grid(axis="x", alpha=.7)
+    ax.set_axisbelow(True)
+    finish(fig, "composicion_etiqueta.png")
+
+    dif = pd.read_csv(DATA / "dificultad.csv")
+    fig, ax = plt.subplots(figsize=(7.8, 3.8))
+    dif = dif.set_index("dificultad").reindex(["Con dificultad", "Sin dificultad"])
+    ax.barh(dif.index, 100 - dif["porcentaje_sin_formal"], color=RIO, label="Dentro de la ruta formal")
+    ax.barh(dif.index, dif["porcentaje_sin_formal"], left=100 - dif["porcentaje_sin_formal"], color=ARCILLA, label="Fuera de la ruta formal")
+    for y, row in enumerate(dif.itertuples()):
+        ax.text(102, y, f"n = {row.n:,.0f}".replace(",", "."), va="center", fontsize=9)
+    ax.set_xlim(0, 121)
+    ax.set_xlabel("Porcentaje dentro de cada grupo")
+    ax.set_title("Clasificación por dificultad funcional declarada", loc="left")
+    ax.legend(loc="upper center", bbox_to_anchor=(.5, -.19), ncol=2, frameon=False)
+    ax.invert_yaxis()
+    finish(fig, "dificultad.png")
+
+    age = pd.read_csv(DATA / "edad_dificultad.csv")
+    age = age.loc[age["publicable"] == True].sort_values("P_EDADR")  # noqa: E712
+    fig, ax = plt.subplots(figsize=(11.2, 4.5))
+    for name, color in [("Con dificultad", OCRE), ("Sin dificultad", ANIL)]:
+        part = age.loc[age["dificultad"] == name]
+        ax.plot(part["P_EDADR"], part["porcentaje_sin_formal"], marker="o", markersize=4,
+                linewidth=2.3, label=name, color=color)
+    ax.set_xticks(list(AGE_LABELS), list(AGE_LABELS.values()), rotation=60, ha="right")
+    ax.set_ylabel("Fuera de la ruta formal (%)")
+    ax.set_xlabel("Edad al censo (grupos quinquenales)")
+    ax.set_title("La relación cambia con la edad", loc="left")
+    ax.grid(axis="y", alpha=.8)
+    ax.legend(frameon=False)
+    finish(fig, "edad_dificultad.png")
+
+    sex = pd.read_csv(DATA / "sexo_dificultad.csv")
+    fig, ax = plt.subplots(figsize=(7.5, 4))
+    positions = np.arange(2)
+    width = .34
+    for offset, name, color in [(-width / 2, "Con dificultad", OCRE),
+                                (width / 2, "Sin dificultad", ANIL)]:
+        part = sex.set_index(["sexo", "dificultad"])
+        values = [part.loc[(s, name), "porcentaje_sin_formal"] for s in ("Hombre", "Mujer")]
+        ax.bar(positions + offset, values, width, label=name, color=color)
+    ax.set_xticks(positions, ["Hombres", "Mujeres"])
+    ax.set_ylabel("Fuera de la ruta formal (%)")
+    ax.set_title("Sexo y dificultad funcional", loc="left")
+    ax.grid(axis="y", alpha=.7)
+    ax.set_axisbelow(True)
+    ax.legend(frameon=False)
+    finish(fig, "sexo_dificultad.png")
+
+    mun = pd.read_csv(DATA / "municipio.csv").sort_values("porcentaje_sin_formal")
+    fig, ax = plt.subplots(figsize=(9.1, 8.7))
+    ax.barh(mun["municipio"], mun["porcentaje_sin_formal"], color=ARCILLA, height=.7)
+    ax.axvline(summary["pct_sin_formal"], color=INK, linestyle="--", linewidth=1.5,
+               label=f"Atlántico: {coma(summary['pct_sin_formal'], 1)} %")
+    ax.set_xlabel("Fuera de la ruta formal (%)")
+    ax.set_title("Municipios con recuentos publicables", loc="left")
+    ax.grid(axis="x", alpha=.6)
+    ax.set_axisbelow(True)
+    ax.legend(frameon=False, loc="lower right")
+    finish(fig, "municipio.png")
+
+    quality = pd.read_csv(DATA / "calidad_variables.csv").head(12).sort_values("pct")
+    fig, ax = plt.subplots(figsize=(8.5, 5.1))
+    ax.barh(quality["descripcion"], quality["pct"], color=MUTED)
+    ax.set_xlabel("Faltantes o códigos de no informa (%)")
+    ax.set_title("Variables con mayor ausencia en los predictores", loc="left")
+    ax.grid(axis="x", alpha=.7)
+    ax.set_axisbelow(True)
+    finish(fig, "faltantes.png")
+
+
+def make_model(results: dict, frame: pd.DataFrame) -> None:
+    names = {
+        "baseline": "Prevalencia",
+        "logistica": "Regresión logística",
+        "random_forest": "Random Forest",
+        "hist_gradient_boosting": "Boosting de histogramas",
+    }
+    rows = []
+    for key, label in names.items():
+        model = results["models"][key]
+        test = results["test_metrics"][key]
+        rows.append({"modelo": label, "codigo": key,
+                     "ap_cv": model["cv_pr_auc"], "ap_validacion": model["validation"]["pr_auc"],
+                     "ap_prueba": test["pr_auc"], "roc_auc_prueba": test["roc_auc"],
+                     "brier_prueba": test["brier"], "f1_prueba": test["f1"],
+                     "precision_prueba": test["precision"], "recall_prueba": test["recall"],
+                     "umbral": test["threshold"]})
+    write_csv("comparacion_modelos.csv", pd.DataFrame(rows))
+    write_csv("hiperparametros.csv", pd.DataFrame([
+        {"parametro": key.removeprefix("model__"), "valor": str(value)}
+        for key, value in results["models"][results["selected_model"]]["best_params"].items()
+    ]))
+
+    split = pd.DataFrame([
+        {"particion": label, "n": results["split"][key]["n"],
+         "viviendas": results["split"][key]["dwellings"],
+         "n_sin_formal": results["split"][key]["no_access"],
+         "porcentaje_sin_formal": results["split"][key]["prevalence"] * 100}
+        for key, label in (("train", "Entrenamiento"), ("validation", "Validación"), ("test", "Prueba"))
+    ])
+    write_csv("particiones.csv", split)
+
+    imp = pd.DataFrame(results["permutation_importance_validation"])
+    imp["descripcion"] = imp["feature"].map(lambda x: FEATURE_LABELS[x][0])
+    write_csv("importancia.csv", imp)
+
+    calibration = pd.DataFrame(results["calibration_deciles_test"])
+    write_csv("calibracion.csv", calibration)
+
+    chosen = results["test_metrics"][results["selected_model"]]
+    at_half = results["selected_test_at_0_5"]
+    write_csv("umbrales_prueba.csv", pd.DataFrame([
+        {"criterio": "Elegido en validación", **{
+            key: chosen[key] for key in ("threshold", "f1", "precision", "recall", "specificity")
+        }},
+        {"criterio": "Umbral convencional 0,5", **{
+            key: at_half[key] for key in ("threshold", "f1", "precision", "recall", "specificity")
+        }},
+    ]))
+    conf = chosen["confusion"]
+    write_csv("matriz_confusion.csv", pd.DataFrame([{
+        "verdaderos_negativos": conf["tn"], "falsos_positivos": conf["fp"],
+        "falsos_negativos": conf["fn"], "verdaderos_positivos": conf["tp"],
+        "marcados": conf["fp"] + conf["tp"],
+    }]))
+    bounds = results["test_uncertainty"]["intervals_95"]
+    write_csv("incertidumbre.csv", pd.DataFrame([
+        {"metrica": key, "inferior": value[0], "superior": value[1]}
+        for key, value in bounds.items()
+    ]))
+    sub = results["subgroups_test"]["CONDICION_FISICA"]
+    write_csv("equidad_dificultad.csv", pd.DataFrame([
+        {"grupo": "Con dificultad", **sub["1.0"]},
+        {"grupo": "Sin dificultad", **sub["2.0"]},
+    ]))
+
+    models = pd.read_csv(DATA / "comparacion_modelos.csv")
+    fig, ax = plt.subplots(figsize=(8, 4.3))
+    p = np.arange(len(models))
+    ax.barh(p + .16, models["ap_validacion"], height=.31, color=ANIL, label="Validación")
+    ax.barh(p - .16, models["ap_prueba"], height=.31, color=OCRE, label="Prueba")
+    ax.set_yticks(p, models["modelo"])
+    ax.set_xlim(0, .42)
+    ax.set_xlabel("Precisión promedio (AP)")
+    ax.set_title("Comparación bajo el mismo protocolo", loc="left")
+    ax.legend(frameon=False)
+    ax.grid(axis="x", alpha=.6)
+    ax.set_axisbelow(True)
+    finish(fig, "comparacion_modelos.png")
+
+    fig, ax = plt.subplots(figsize=(8.6, 4.2))
+    top = imp.head(10).sort_values("mean_ap_drop")
+    ax.barh(top["descripcion"], top["mean_ap_drop"],
+            color=[RIO if v in ("HOGAR_OTROS_ENFERMOS", "SECCION_PCT_ENFERMOS") else BASE_GRIS for v in top["feature"]])
+    ax.set_xlabel("Caída de AP al permutar la variable en validación")
+    ax.set_title("Importancia predictiva, sin interpretación causal", loc="left")
+    ax.grid(axis="x", alpha=.6)
+    ax.set_axisbelow(True)
+    finish(fig, "importancia_modelo.png")
+
+    conf = results["test_metrics"][results["selected_model"]]["confusion"]
+    matrix = np.array([[conf["tn"], conf["fp"]], [conf["fn"], conf["tp"]]])
+    fig, ax = plt.subplots(figsize=(5.2, 4.7))
+    ax.imshow(matrix, cmap=LinearSegmentedColormap.from_list("rio", ["#EEF2F5", RIO]))
+    ax.set_xticks([0, 1], ["Dentro de la ruta", "Fuera de la ruta"])
+    ax.set_yticks([0, 1], ["Dentro de la ruta", "Fuera de la ruta"])
+    ax.set_xlabel("Predicción")
+    ax.set_ylabel("Observado")
+    ax.set_title("Matriz de confusión en prueba", loc="left")
+    for i in range(2):
+        for j in range(2):
+            ax.text(j, i, f"{matrix[i, j]:,.0f}".replace(",", "."),
+                    ha="center", va="center", color="white" if matrix[i, j] > .7 * matrix.max() else INK,
+                    fontsize=13)
+    finish(fig, "matriz_confusion.png")
+
+    artifact = joblib.load(RESULTS / "modelo_sin_acceso.joblib")
+    groups = group_ids(frame)
+    _, _, test = split_three(frame[FEATURES_V2], frame["SIN_ACCESO"], groups)
+    observed = frame["SIN_ACCESO"].iloc[test].to_numpy()
+    scores = artifact["pipeline"].predict_proba(frame.iloc[test][FEATURES_V2])[:, 1]
+    audits = {
+        "pr_auc": average_precision_score(observed, scores),
+        "roc_auc": roc_auc_score(observed, scores),
+        "brier": brier_score_loss(observed, scores),
+    }
+    for name, value in audits.items():
+        if not np.isclose(value, chosen[name], atol=1e-10, rtol=0):
+            raise AssertionError(f"La curva recalculada no reproduce {name}")
+    fpr, tpr, _ = roc_curve(observed, scores)
+    precision, recall, _ = precision_recall_curve(observed, scores)
+    fig, axes = plt.subplots(1, 2, figsize=(10.8, 4.5))
+    axes[0].plot(fpr, tpr, color=RIO, linewidth=2.1)
+    axes[0].plot([0, 1], [0, 1], color=MUTED, linestyle="--", linewidth=1)
+    axes[0].set(xlabel="Tasa de falsos positivos", ylabel="Sensibilidad",
+                title=f"ROC · AUC {coma(audits['roc_auc'])}")
+    axes[1].plot(recall, precision, color=RIO, linewidth=2.1)
+    axes[1].axhline(observed.mean(), color=MUTED, linestyle="--", linewidth=1,
+                    label="Prevalencia")
+    axes[1].set(xlabel="Sensibilidad", ylabel="Precisión",
+                title=f"Precisión–sensibilidad · AP {coma(audits['pr_auc'])}")
+    axes[1].legend(frameon=False)
+    for ax in axes:
+        ax.set_xlim(0, 1)
+        ax.set_ylim(0, 1)
+        ax.grid(alpha=.55)
+    fig.suptitle("Modelo seleccionado · conjunto de prueba", x=.06, ha="left")
+    finish(fig, "curvas_modelo.png")
+    # Puntos de las curvas para la versión interactiva del libro; cada uno agrega a muchas personas.
+    def muestra(total: int, puntos: int = 400) -> np.ndarray:
+        return np.unique(np.linspace(0, total - 1, min(puntos, total)).round().astype(int))
+    i_roc, i_pr = muestra(len(fpr)), muestra(len(recall))
+    write_csv("curvas_modelo.csv", pd.concat([
+        pd.DataFrame({"curva": "roc", "x": fpr[i_roc], "y": tpr[i_roc]}),
+        pd.DataFrame({"curva": "pr", "x": recall[i_pr], "y": precision[i_pr]}),
+    ]))
+    write_csv("curvas_resumen.csv", pd.DataFrame([{
+        "roc_auc": audits["roc_auc"], "ap": audits["pr_auc"], "prevalencia": observed.mean()}]))
+
+    cal = pd.read_csv(DATA / "calibracion.csv")
+    fig, ax = plt.subplots(figsize=(5.6, 4.6))
+    ax.plot([0, .5], [0, .5], color=MUTED, linestyle="--", label="Calibración perfecta")
+    ax.plot(cal["mean_predicted"], cal["observed"], "o-", color=RIO,
+            linewidth=2.1, label="Deciles en prueba")
+    ax.set(xlabel="Probabilidad media predicha", ylabel="Frecuencia observada",
+           title="Calibración interna")
+    ax.set_xlim(0, .5)
+    ax.set_ylim(0, .5)
+    ax.grid(alpha=.6)
+    ax.legend(frameon=False)
+    finish(fig, "calibracion_modelo.png")
+
+
+def make_context(results: dict, frame: pd.DataFrame) -> None:
+    """Cuadros sobre el cambio de versión; solo agregados de grupos amplios."""
+    decision = json.loads((CONTEXT / "decision.json").read_text(encoding="utf-8"))
+    gap = json.loads((CONTEXT / "brecha.json").read_text(encoding="utf-8"))
+    archived = json.loads((RESULTS_V1 / "resultados.json").read_text(encoding="utf-8"))
+    old = archived["test_metrics"]["hist_gradient_boosting"]
+    new = results["test_metrics"]["hist_gradient_boosting"]
+    v26, v28 = decision["validacion"]["modelo_26"], decision["validacion"]["modelo_28"]
+    dwellings, sections = decision["cv_viviendas_no_vistas"], decision["cv_secciones_no_vistas"]
+    write_csv("contexto_comparacion.csv", pd.DataFrame([
+        {"medida": "AP en validación", "modelo_26": v26["pr_auc"], "modelo_28": v28["pr_auc"]},
+        {"medida": "AP en CV, viviendas no vistas", "modelo_26": dwellings["ap_26"], "modelo_28": dwellings["ap_28"]},
+        {"medida": "AP en CV, secciones no vistas", "modelo_26": sections["ap_26"], "modelo_28": sections["ap_28"]},
+        {"medida": "AP en prueba", "modelo_26": old["pr_auc"], "modelo_28": new["pr_auc"]},
+        {"medida": "ROC-AUC en prueba", "modelo_26": old["roc_auc"], "modelo_28": new["roc_auc"]},
+        {"medida": "Brier en prueba", "modelo_26": old["brier"], "modelo_28": new["brier"]},
+    ]))
+    paired = decision["comparacion_pareada"]
+    write_csv("contexto_decision.csv", pd.DataFrame([{
+        "delta_ap": paired["delta_ap"], "inferior": paired["delta_ap_interval_95"][0],
+        "superior": paired["delta_ap_interval_95"][1],
+        "delta_ap_secciones": sections["delta_ap"],
+    }]))
+    action = frame["P_QUEHIZO_PPAL"]
+    others = frame["HOGAR_OTROS_ENFERMOS"].clip(upper=3).astype(int)
+    household = frame.groupby(others).agg(personas=("SIN_ACCESO", "size"), fuera_ruta=("SIN_ACCESO", "mean"))
+    for code, name in ((8, "autorreceta"), (7, "remedios"), (3, "botica"), (9, "nada")):
+        household[name] = action.eq(code).groupby(others).mean()
+    write_csv("contexto_hogar.csv", (household * [1, 100, 100, 100, 100, 100]).reset_index()
+              .rename(columns={"HOGAR_OTROS_ENFERMOS": "otros_enfermos"}))
+    share = frame["SECCION_PCT_ENFERMOS"]
+    quintile = pd.qcut(share, 5, labels=False, duplicates="drop") + 1
+    section = frame.groupby(quintile).agg(personas=("SIN_ACCESO", "size"), fuera_ruta=("SIN_ACCESO", "mean"))
+    section["media_seccion"] = share.groupby(quintile).mean()
+    write_csv("contexto_seccion.csv", (section * [1, 100, 100]).reset_index()
+              .rename(columns={"SECCION_PCT_ENFERMOS": "quintil"}))
+    write_csv("priorizacion_prueba.csv", pd.DataFrame(results["prioritization_test"]))
+    names = {"v1_umbral_validado": "Versión 1, su umbral", "v2_mismas_personas_marcadas": "Versión 2, mismas personas marcadas",
+             "v2_umbral_validado": "Versión 2, su umbral"}
+    write_csv("comparacion_mismo_marcado.csv", pd.DataFrame([
+        {"escenario": names[key], "marcadas": row["flagged"], "precision": row["precision"], "sensibilidad": row["recall"],
+         "sens_dificultad": row["recall_difficulty"], "sens_sin_dificultad": row["recall_no_difficulty"],
+         "sens_60_mas": row["recall_60_plus"]}
+        for key, row in gap["same_flagged_comparison"].items()
+    ]))
+    write_csv("equidad_edad.csv", pd.DataFrame([{
+        "sens_dificultad": gap["raw_recall"]["1"], "sens_sin_dificultad": gap["raw_recall"]["2"],
+        "sens_ajustada_dificultad": gap["age_standardized_recall"]["1"],
+        "sens_ajustada_sin_dificultad": gap["age_standardized_recall"]["2"],
+        "sens_60_mas": gap["recall_60_plus"], "sens_menos_60": gap["recall_under_60"],
+    }]))
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR,
+                        help="Carpeta de los CSV originales del CNPV 2018 Atlántico")
+    args = parser.parse_args()
+    DATA.mkdir(parents=True, exist_ok=True)
+    FIGURES.mkdir(parents=True, exist_ok=True)
+    configure_plot()
+    results = json.loads((RESULTS / "resultados.json").read_text(encoding="utf-8"))
+    quality = json.loads((RESULTS / "perfil_calidad.json").read_text(encoding="utf-8"))
+    frame, source = load_data(args.data_dir, with_context=True)
+    if source["source_sha256"] != results["source"]["source_sha256"]:
+        raise RuntimeError("Los CSV no coinciden con los usados por el modelo auditado. "
+                           "Reentrene y audite antes de mezclar resultados.")
+    for key in ("people", "sick", "unlabeled", "labeled", "no_access",
+                "house_match", "dwell_match", "label_breakdown"):
+        if source[key] != results["source"][key]:
+            raise AssertionError(f"Diferencia con la auditoría en {key}")
+    if source["labeled"] != quality["n"]:
+        raise AssertionError("El perfil de calidad no coincide con la cohorte")
+    summary = make_eda(frame, source, quality)
+    plot_eda(summary)
+    make_model(results, frame)
+    make_context(results, frame)
+    print(f"Agregados y figuras actualizados en {BOOK}")
+    print(f"Personas analizadas: {summary['labeled']:,}; clase operativa sin acceso: {summary['no_access']:,}")
+
+
+if __name__ == "__main__":
+    main()

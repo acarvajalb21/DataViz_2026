@@ -1,0 +1,55 @@
+{
+  "fecha": "2026-11-12",
+  "integridad_manifiesto_zip": "correcta",
+  "archivos_importados": 538,
+  "archivos_anteriores_recuperables": 5498,
+  "contenidos_locales_unicos_archivados": 1150,
+  "shiny": {
+    "archivos_R_analizados": 8,
+    "http_local": 200,
+    "proceso_de_prueba": "detenido y puerto libre comprobado"
+  },
+  "dash": {
+    "/": 200,
+    "/health": 200,
+    "/_dash-layout": 200,
+    "/informe/": 200,
+    "version_probada": "4.5.0"
+  },
+  "bookdown": {
+    "recompilacion": "correcta",
+    "salida_prueba": "temporal; retirada tras verificar",
+    "locale": "English_United States.utf8"
+  },
+  "jupyter": {
+    "acceso_carpeta_nueva_http": 200,
+    "cuadernos_sintacticamente_validos": 2,
+    "celdas_codigo": 56,
+    "kernels_verificados": [
+      "modelo-salud",
+      "libro-salud",
+      "credito-curso"
+    ]
+  },
+  "modelo": {
+    "huellas_cuatro_CSV_coinciden_con_resultados": true,
+    "huellas_esquema_y_contexto_coinciden": true,
+    "codigo_compartido_importable": true,
+    "reentrenado": false,
+    "entorno_exacto_reconstruido": true,
+    "pruebas_contrato": 7
+  },
+  "entornos_curso": {
+    "dash": "Python 3.13; Dash 4.5.0",
+    "credito_original": "Python 3.11.9; scikit-learn 1.3.0",
+    "jupyter_book": "CLI 0.15.1 ejecutada con el intérprete trasladado",
+    "estado": "reconstruidos; pip.exe y jupyter-book.exe verificados"
+  },
+  "recuperacion": {
+    "archivo_desde_zip_original": "verificado",
+    "archivo_desde_versiones_unicas": "verificado",
+    "bundles_git": "dos historias completas verificadas"
+  },
+  "despliegues_modificados": false,
+  "configuracion_actual": "gestion/entorno/verificacion.json"
+}

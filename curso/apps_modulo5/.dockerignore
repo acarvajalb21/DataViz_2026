@@ -1,0 +1,12 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.git/
+.env
+.env.*
+.vscode/
+*.tar
+*.zip
+models/
+pruebas.py

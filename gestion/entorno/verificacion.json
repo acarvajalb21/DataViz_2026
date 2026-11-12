@@ -1,0 +1,145 @@
+{
+  "fecha": "2026-11-12",
+  "alcance": "uso local de DataViz en este computador",
+  "shiny_prueba_anterior": "terminado; puerto 3838 libre comprobado",
+  "servidores": {
+    "shiny": {
+      "http": {
+        "/": 200
+      },
+      "puerto": 3838,
+      "libre_despues": true
+    },
+    "dash": {
+      "http": {
+        "/": 200,
+        "/health": 200,
+        "/_dash-layout": 200,
+        "/informe/": 200,
+        "/api/asistente/estado": 200
+      },
+      "puerto": 8050,
+      "libre_despues": true
+    },
+    "bookdown": {
+      "http": {
+        "/": 200,
+        "/index.html": 200
+      },
+      "puerto": 4321,
+      "libre_despues": true
+    },
+    "jupyter_book": {
+      "http": {
+        "/": 200,
+        "/intro.html": 200
+      },
+      "puerto": 4322,
+      "libre_despues": true
+    }
+  },
+  "curso": [
+    {
+      "nombre": "curso_dash",
+      "ruta": "curso/DASH/.venv",
+      "pip_ejecutable": "pip 26.3 from C:\\Users\\USUARIO\\Documents\\DataViz_2026\\curso\\DASH\\.venv\\Lib\\site-packages\\pip (python 3.13)",
+      "jupyter_book_ejecutable": null,
+      "pip_check": "correcto"
+    },
+    {
+      "nombre": "curso_libro",
+      "ruta": "curso/jbook_dataviz_2026/.venv",
+      "pip_ejecutable": "pip 26.3 from C:\\Users\\USUARIO\\Documents\\DataViz_2026\\curso\\jbook_dataviz_2026\\.venv\\Lib\\site-packages\\pip (python 3.11)",
+      "jupyter_book_ejecutable": "Jupyter Book      : 0.15.1\nExternal ToC      : 0.3.1\nMyST-Parser       : 0.18.1\nMyST-NB           : 0.17.2\nSphinx Book Theme : 1.0.1\nJupyter-Cache     : 0.6.1\nNbClient          : 0.7.4",
+      "pip_check": "correcto"
+    },
+    {
+      "nombre": "curso_credito",
+      "ruta": "curso/SEMANA_11/app_dash/.venv",
+      "pip_ejecutable": "pip 26.3 from C:\\Users\\USUARIO\\Documents\\DataViz_2026\\curso\\SEMANA_11\\app_dash\\.venv\\Lib\\site-packages\\pip (python 3.11)",
+      "jupyter_book_ejecutable": null,
+      "pip_check": "correcto"
+    }
+  ],
+  "kernels": {
+    "modelo-salud": {
+      "python": "3.12.10",
+      "ejecutable": "C:\\Users\\USUARIO\\Documents\\DataViz_2026\\proyecto_salud\\ml_salud\\.venv\\Scripts\\python.exe",
+      "pandas": "3.0.5",
+      "numpy": "2.5.2",
+      "cwd": "C:\\Users\\USUARIO\\Documents\\DataViz_2026\\proyecto_salud\\jupyter_salud"
+    },
+    "libro-salud": {
+      "python": "3.12.10",
+      "ejecutable": "C:\\Users\\USUARIO\\Documents\\DataViz_2026\\proyecto_salud\\jupyter_salud\\.venv\\Scripts\\python.exe",
+      "pandas": "2.3.3",
+      "numpy": "2.5.4",
+      "cwd": "C:\\Users\\USUARIO\\Documents\\DataViz_2026\\proyecto_salud\\jupyter_salud"
+    },
+    "credito-curso": {
+      "python": "3.11.9",
+      "ejecutable": "C:\\Users\\USUARIO\\Documents\\DataViz_2026\\curso\\SEMANA_11\\app_dash\\.venv\\Scripts\\python.exe",
+      "pandas": "2.1.0",
+      "numpy": "1.25.2",
+      "cwd": "C:\\Users\\USUARIO\\Documents\\DataViz_2026\\proyecto_salud\\jupyter_salud"
+    }
+  },
+  "modelo": {
+    "python": "3.12.10",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.1",
+    "pruebas": 7,
+    "resultado": "OK",
+    "exportacion_kaleido": "PNG correcto",
+    "reentrenado": false
+  },
+  "libros": {
+    "bookdown": "compilado por el iniciador",
+    "jupyter_salud": "compilado también con ABRIR_DATAVIZ.ps1; 15 figuras interactivas",
+    "curso": "compilado usando el ejecutable reconstruido"
+  },
+  "eda": {
+    "ejecucion": "todas las celdas con datos ficticios aislados",
+    "registros_ficticios": 1932,
+    "figuras": 9,
+    "microdatos_originales_modificados": false
+  },
+  "dash": {
+    "pruebas_app": "correctas",
+    "asistente_local": "89/89 preguntas"
+  },
+  "r": {
+    "biblioteca_principal": ".dataviz-runtime/r-library",
+    "r_studio": "proyectos .Rproj con biblioteca del proyecto primero",
+    "pruebas_shiny_grupos": 9,
+    "aserciones_shiny": 70,
+    "paquetes_registrados": "R-paquetes.csv",
+    "bibliotecas_globales_ajenas": "conservadas",
+    "paquetes_instalados": 148,
+    "devtools": "2.5.2"
+  },
+  "google_cloud": {
+    "cli": "593.0.0",
+    "proyecto": "eda-salud-atlantico-2018",
+    "region": "us-east1",
+    "autenticacion": "opcional, no requerida para uso local",
+    "despliegues_modificados": false
+  },
+  "entrada": "INICIAR_DATAVIZ.cmd",
+  "git": {
+    "revision": "git status --short y git log -1 --oneline",
+    "datos_entornos_credenciales": "excluidos mediante .gitignore"
+  },
+  "curso_modulo5": {
+    "entorno": "curso/apps_modulo5/.venv",
+    "python": "3.12.10",
+    "apps": [
+      "crédito",
+      "mapas",
+      "finanzas"
+    ],
+    "pruebas": 9,
+    "resultado": "OK"
+  },
+  "curso_activaciones": "tres Activate.ps1 ejecutados y rutas verificadas"
+}

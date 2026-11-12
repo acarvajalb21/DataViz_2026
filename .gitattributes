@@ -1,0 +1,3 @@
+# El modelo guardado verifica las huellas exactas de estos dos archivos.
+proyecto_salud/ml_salud/esquema.py -text
+proyecto_salud/ml_salud/contexto.py -text

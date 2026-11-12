@@ -1,0 +1,68 @@
+:root {
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #18243a;
+  background: #f3f6fb;
+}
+
+* { box-sizing: border-box; }
+
+body { margin: 0; }
+
+.page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 48px 24px 72px;
+}
+
+.page-header { margin-bottom: 30px; }
+.eyebrow { color: #2563eb; font-size: 12px; font-weight: 700; letter-spacing: .16em; }
+h1 { font-size: clamp(30px, 4vw, 46px); margin: 8px 0 10px; }
+h2 { font-size: 20px; margin: 0 0 8px; }
+.subtitle, .muted { color: #64748b; }
+.subtitle { font-size: 17px; margin: 0; }
+.muted { font-size: 14px; margin-top: 0; }
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(290px, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(30, 49, 81, .06);
+  padding: 25px;
+}
+
+.chart-card .js-plotly-plot { width: 100%; }
+.prediction-card label { display: block; font-weight: 600; margin: 26px 0 10px; }
+.prediction-card input {
+  width: 100%;
+  padding: 13px 15px;
+  font: inherit;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+}
+.prediction-card input:focus { outline: 2px solid #93c5fd; border-color: #2563eb; }
+.prediction-result {
+  min-height: 86px;
+  display: flex;
+  align-items: center;
+  margin-top: 22px;
+  padding: 18px;
+  background: #eff6ff;
+  border-radius: 10px;
+  color: #1d4ed8;
+  font-size: 20px;
+  font-weight: 700;
+}
+.note { margin: 18px 0 0; line-height: 1.5; }
+
+@media (max-width: 840px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .page { padding: 28px 15px 48px; }
+  .card { padding: 19px; }
+}

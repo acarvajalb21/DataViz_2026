@@ -1,0 +1,16 @@
+:root { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #17243b; background: #f3f6fa; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+.container { max-width: 1440px; margin: 0 auto; padding: 44px 32px; }
+h1 { font-size: clamp(26px, 3vw, 38px); line-height: 1.2; max-width: 1000px; margin: 12px 0 32px; letter-spacing: -1px; }
+h2 { font-size: 24px; margin: 0 0 24px; }
+.eyebrow { color: #2563eb; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; }
+.two-columns { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(290px, 1fr); gap: 24px; align-items: start; }
+.panel { min-width: 0; padding: 24px; background: white; border: 1px solid #dce4ee; border-radius: 12px; box-shadow: 0 3px 16px #17243b06; }
+.prediction-panel { padding: 32px; }
+label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+.number-input { width: 100%; border: 1px solid #b8c6db; border-radius: 6px; padding: 14px; font-size: 16px; color: #17243b; }
+.number-input:focus { outline: 2px solid #2563eb; outline-offset: 2px; }
+.prediction { margin-top: 24px; padding: 20px; border-radius: 8px; background: #eff6ff; color: #1841a0; font-size: 20px; font-weight: 600; line-height: 1.5; }
+.muted { font-size: 13px; color: #65748a; margin-top: 24px; line-height: 1.6; }
+@media (max-width: 850px) { .two-columns { grid-template-columns: 1fr; } .container { padding: 24px 16px; } .panel { padding: 16px; } h1 { letter-spacing: -.5px; } }

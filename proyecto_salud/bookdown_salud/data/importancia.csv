@@ -1,0 +1,29 @@
+﻿feature,mean_ap_drop,std_ap_drop,descripcion
+U_MPIO,0.054261,0.002107,Municipio
+HOGAR_OTROS_ENFERMOS,0.051794,0.000931,Otras personas del hogar con problema de salud
+P_EDADR,0.044281,0.001070,Grupo quinquenal de edad
+SECCION_PCT_ENFERMOS,0.030078,0.001833,"Proporción con problema de salud en la sección censal, sin el propio hogar"
+H_DONDE_PREPALIM,0.011002,0.001626,Lugar de preparación de alimentos
+P_NIVEL_ANOSR,0.009371,0.000570,Nivel educativo registrado
+VA1_ESTRATO,0.009174,0.000832,Estrato del recibo de energía
+V_MAT_PARED,0.007359,0.000374,Material de las paredes
+CONDICION_FISICA,0.005938,0.001660,Alguna dificultad funcional diaria
+VF_INTERNET,0.005824,0.000268,Internet
+P_PARENTESCOR,0.004523,0.001039,Parentesco con la jefatura del hogar
+V_MAT_PISO,0.004423,0.000249,Material del piso
+H_NRO_DORMIT,0.004093,0.000781,Cuartos para dormir
+P_SEXO,0.003837,0.001235,Sexo registrado
+H_NRO_CUARTOS,0.003808,0.000692,Cuartos del hogar
+UA_CLASE,0.003468,0.000274,Clase de área censal
+H_AGUA_COCIN,0.002818,0.001196,Fuente de agua para cocinar
+PA1_GRP_ETNIC,0.002700,0.000281,Autorreconocimiento étnico
+V_TIPO_VIV,0.001121,0.000216,Tipo de vivienda
+HA_TOT_PER,0.000655,0.000301,Personas en el hogar
+P_EST_CIVIL,0.000617,0.001182,Estado civil
+V_TIPO_SERSA,0.000568,0.000400,Tipo de servicio sanitario
+VD_GAS,0.000291,0.000139,Gas natural
+VB_ACU,0.000089,0.000055,Acueducto
+VA_EE,0.000073,0.000009,Energía eléctrica
+VC_ALC,0.000037,0.000005,Alcantarillado
+VE_RECBAS,0.000026,0.000016,Recolección de basuras
+P_ALFABETA,-0.000277,0.000140,Sabe leer y escribir

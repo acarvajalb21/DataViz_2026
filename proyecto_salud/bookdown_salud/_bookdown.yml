@@ -1,0 +1,19 @@
+book_filename: "acceso_formal_salud_atlantico"
+output_dir: "docs"
+delete_merged_file: true
+rmd_files:
+  - index.Rmd
+  - 01-pregunta-y-definicion.Rmd
+  - 02-datos-y-metodo.Rmd
+  - 03-calidad.Rmd
+  - 04-exploracion.Rmd
+  - 05-modelo.Rmd
+  - 06-conclusiones.Rmd
+  - 07-reproducibilidad.Rmd
+  - 08-aplicacion-shiny.Rmd
+language:
+  label:
+    fig: "Figura "
+    tab: "Tabla "
+  ui:
+    chapter_name: "Capítulo "

@@ -1,0 +1,10 @@
+Verificación local: 26 de octubre de 2026
+
+9 pruebas funcionales correctas.
+Predicción del módulo reproducida: 45 minutos = 36.53 millones.
+Modelo entrenado, serializado y cargado correctamente.
+Los cuatro años del mapa y dos acciones de Finance Explorer comprobados.
+Rutas web y callbacks HTTP de las tres apps: correctos.
+Interfaz de créditos comprobada en el navegador.
+Docker: archivo preparado; imagen sin construir porque Docker no está instalado.
+Google Cloud: sin acciones realizadas.
