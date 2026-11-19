@@ -1,0 +1,250 @@
+{
+  "checked_at": "2026-11-17T17:38:13.929160+00:00",
+  "http": [
+    {
+      "name": "Dash",
+      "url": "https://dataviz-salud-atlantico-409319239507.us-east1.run.app/",
+      "http": 200,
+      "sha256": "52ff9d4e48839bd17d8f3699c9c328da68f71fe6a3028c4dcc860ad12f6cad93",
+      "ok": true
+    },
+    {
+      "name": "Dash health",
+      "url": "https://dataviz-salud-atlantico-409319239507.us-east1.run.app/health",
+      "http": 200,
+      "sha256": "2cecbacb1d4ad3f7536a40d87b79c7934bc0f9a53d775a1e320b3bbd98dc2ebf",
+      "ok": true
+    },
+    {
+      "name": "Dash informe corregido",
+      "url": "https://dataviz-salud-atlantico-409319239507.us-east1.run.app/informe/modelo.html",
+      "http": 200,
+      "sha256": "b2c3970084c8af3b6a7c9d3f9da66601a69d02f8f1567e6e5b4d7b4d76540628",
+      "coincide_con_local": true,
+      "ok": true
+    },
+    {
+      "name": "Shiny",
+      "url": "https://shiny-salud-atlantico-409319239507.us-east1.run.app/",
+      "http": 200,
+      "sha256": "8bb1d6028a56fae8947a7cb68970560cb4734a35adb831cdcd516a1a7029ff6c",
+      "ok": true
+    },
+    {
+      "name": "Shiny widget",
+      "url": "https://shiny-salud-atlantico-409319239507.us-east1.run.app/asistente.js",
+      "http": 200,
+      "sha256": "dcff05f8ff32e124acd5cef58b8489d1b4025d5cfb5d0ffd7d53bf5eb7ced3ad",
+      "coincide_con_local": true,
+      "ok": true
+    },
+    {
+      "name": "EDAR index.html",
+      "url": "https://acarvajalb21.github.io/EDAR/index.html?v=cb6d100f-20261117-final",
+      "http": 200,
+      "sha256": "ab870b3307f3181119bd7618228a2b54c8144e8f4848807611a742d0efdd0bcf",
+      "coincide_con_local": true,
+      "ok": true
+    },
+    {
+      "name": "EDAR modelo.html",
+      "url": "https://acarvajalb21.github.io/EDAR/modelo.html?v=cb6d100f-20261117-final",
+      "http": 200,
+      "sha256": "bcfe7640b9ccf37049f7dbbb7587c23d85a12c53b5310904bb557c439f7b6c29",
+      "coincide_con_local": true,
+      "ok": true
+    },
+    {
+      "name": "EDAR codigo.html",
+      "url": "https://acarvajalb21.github.io/EDAR/codigo.html?v=cb6d100f-20261117-final",
+      "http": 200,
+      "sha256": "0a025625b6016682f095e758af01acd518ec487df3b9fc6506de367a0e219b29",
+      "coincide_con_local": true,
+      "ok": true
+    },
+    {
+      "name": "EDAR version",
+      "url": "https://acarvajalb21.github.io/EDAR/publicacion.json?v=cb6d100f-20261117-final",
+      "http": 200,
+      "sha256": "6c8e15fd4e3c9617b35a506d66dafc11839071b820b0450866be75fb89133fe9",
+      "coincide_con_local": true,
+      "ok": true
+    },
+    {
+      "name": "EDAPYTHON index.html",
+      "url": "https://acarvajalb21.github.io/EDAPYTHON/index.html?v=cb6d100f-20261117-final",
+      "http": 200,
+      "sha256": "f69d073ec8b792bf1d1799bf35da7e89f2252dc9770a220c274ae4550d30f4c0",
+      "coincide_con_local": true,
+      "ok": true
+    },
+    {
+      "name": "EDAPYTHON Modelo_acceso_salud_Atlantico_CNPV2018.html",
+      "url": "https://acarvajalb21.github.io/EDAPYTHON/Modelo_acceso_salud_Atlantico_CNPV2018.html?v=cb6d100f-20261117-final",
+      "http": 200,
+      "sha256": "5b831781fe3766a935e517ebc064105ff7940e539fc546646867f0bbdb003537",
+      "coincide_con_local": true,
+      "ok": true
+    },
+    {
+      "name": "EDAPYTHON EDA_acceso_salud_Atlantico_CNPV2018.html",
+      "url": "https://acarvajalb21.github.io/EDAPYTHON/EDA_acceso_salud_Atlantico_CNPV2018.html?v=cb6d100f-20261117-final",
+      "http": 200,
+      "sha256": "bf0100d34ac1abcc9cb68bd98ade8bd6fe516b2965061b8146c8a58a023639a9",
+      "coincide_con_local": true,
+      "ok": true
+    },
+    {
+      "name": "EDAPYTHON version",
+      "url": "https://acarvajalb21.github.io/EDAPYTHON/publicacion.json?v=cb6d100f-20261117-final",
+      "http": 200,
+      "sha256": "0f4645cf7fe285e79c6a3621a0fde3a8844ec9002a7374f70f9c47c8fddf7d3a",
+      "coincide_con_local": true,
+      "ok": true
+    }
+  ],
+  "chat": [
+    {
+      "pregunta": "¿Por qué se escogió ese modelo?",
+      "http": 200,
+      "cors": "https://shiny-salud-atlantico-409319239507.us-east1.run.app",
+      "respuesta": {
+        "aviso": null,
+        "filtros": null,
+        "fuentes": [
+          {
+            "fuente": "Aplicación, sección Modelado",
+            "n": 1,
+            "pagina": null,
+            "seccion": "creacion",
+            "titulo": "¿Por qué se escogió ese modelo?"
+          }
+        ],
+        "modo": "demostracion",
+        "respuesta": "Por cuatro razones. 1) La regla de selección, fijada antes de mirar la prueba, era la mayor precisión promedio (AP) en validación, y el boosting ganó con 0,386, frente a 0,370 del segundo. 2) También ganó en las demás métricas: ROC-AUC 0,696 y Brier 0,152. 3) La diferencia de AP en prueba, boosting menos el bosque aleatorio, fue 0,012, con intervalo pareado del 95 % de 0,005 a 0,020 (bootstrap de 250 remuestreos por vivienda): no incluye cero, pero es una ventaja pequeña y el intervalo no cubre la variabilidad del entrenamiento ni de la selección. 4) Trata municipio, sexo y materiales como categorías y capta combinaciones entre variables sin especificarlas a mano. [1]",
+        "sin_respuesta": false,
+        "sugerencias": [
+          "¿Cuál es el mejor modelo?",
+          "¿Cómo se dividieron los datos de entrenamiento y prueba?",
+          "¿En qué falla el modelo?"
+        ],
+        "terminos": [
+          {
+            "definicion": "Resume qué tan arriba quedan las personas fuera de la ruta al ordenar por puntuación. Sin modelo vale la prevalencia y su máximo es 1.",
+            "termino": "Precisión promedio (AP)"
+          },
+          {
+            "definicion": "Probabilidad de que el modelo puntúe más alto a una persona fuera de la ruta que a una dentro. El azar da 0,5.",
+            "termino": "ROC-AUC"
+          }
+        ]
+      },
+      "ok": true
+    },
+    {
+      "pregunta": "¿Cómo se dividieron los datos de entrenamiento y prueba?",
+      "http": 200,
+      "cors": "https://shiny-salud-atlantico-409319239507.us-east1.run.app",
+      "respuesta": {
+        "aviso": null,
+        "filtros": null,
+        "fuentes": [
+          {
+            "fuente": "Aplicación, sección Modelado",
+            "n": 1,
+            "pagina": null,
+            "seccion": "creacion",
+            "titulo": "¿Cómo se dividieron los datos de entrenamiento y prueba?"
+          }
+        ],
+        "modo": "demostracion",
+        "respuesta": "Se separaron en tres partes, con proporciones 5/7, 1/7 y 1/7: entrenamiento 97.167 personas (71,4 %) de 63.927 viviendas, validación 19.433 personas (14,3 %) de 12.718 viviendas, prueba 19.434 personas (14,3 %) de 12.695 viviendas. La división es estratificada, para que cada parte tenga la misma proporción fuera de la ruta, y agrupada por vivienda: las personas de una misma vivienda quedan en una sola parte, para no evaluar con hogares que el modelo ya vio. Con entrenamiento se ajustan los modelos y se buscan hiperparámetros con validación cruzada de 3 pliegues; con validación se elige el modelo y el umbral; la prueba se usa una sola vez al final. [1]",
+        "sin_respuesta": false,
+        "sugerencias": [
+          "¿Cuál es el mejor modelo?",
+          "¿Por qué se escogió ese modelo?",
+          "¿En qué falla el modelo?"
+        ],
+        "terminos": [
+          {
+            "definicion": "Puntuación a partir de la cual el modelo marca a una persona.",
+            "termino": "Umbral"
+          }
+        ]
+      },
+      "ok": true
+    },
+    {
+      "pregunta": "¿Por qué las métricas del modelo son bajas?",
+      "http": 200,
+      "cors": "https://shiny-salud-atlantico-409319239507.us-east1.run.app",
+      "respuesta": {
+        "aviso": null,
+        "filtros": null,
+        "fuentes": [
+          {
+            "fuente": "Aplicación, sección Modelo",
+            "n": 1,
+            "pagina": null,
+            "seccion": "modelo",
+            "titulo": "¿Por qué las métricas del modelo son bajas?"
+          }
+        ],
+        "modo": "demostracion",
+        "respuesta": "Porque el censo no registra lo que más decide la acción: la gravedad del problema, el tiempo de espera, la distancia o la preferencia de la persona. Con solo datos de persona, hogar y vivienda, el modelo ordena mejor que el azar, pero con discriminación moderada: ROC-AUC 0,696 y precisión promedio 0,375, frente a 0,211 sin modelo. Sí aporta: entre el 10 % con mayor puntuación, 46,6 % está fuera de la ruta, 2,2 veces la prevalencia de 21,1 %. Antes se probaron 9 variantes de preparación y ajuste sin ganancia; la mejora solo llegó con información nueva. [1]",
+        "sin_respuesta": false,
+        "sugerencias": [
+          "¿Cuál es el mejor modelo?",
+          "¿Por qué se escogió ese modelo?",
+          "¿Cómo se dividieron los datos de entrenamiento y prueba?"
+        ],
+        "terminos": [
+          {
+            "definicion": "Resume qué tan arriba quedan las personas fuera de la ruta al ordenar por puntuación. Sin modelo vale la prevalencia y su máximo es 1.",
+            "termino": "Precisión promedio (AP)"
+          },
+          {
+            "definicion": "Probabilidad de que el modelo puntúe más alto a una persona fuera de la ruta que a una dentro. El azar da 0,5.",
+            "termino": "ROC-AUC"
+          }
+        ]
+      },
+      "ok": true
+    }
+  ],
+  "github": [
+    {
+      "repo": "EDAR",
+      "commit": "ec63a3f685b7e8a313dcf49551304ef37df9393d",
+      "runs": [
+        {
+          "name": "Publicar libro Bookdown en GitHub Pages",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/acarvajalb21/EDAR/actions/runs/44123681015",
+          "head_sha": "ec63a3f685b7e8a313dcf49551304ef37df9393d"
+        },
+        {
+          "name": "pages build and deployment",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/acarvajalb21/EDAR/actions/runs/44123679118",
+          "head_sha": "ec63a3f685b7e8a313dcf49551304ef37df9393d"
+        }
+      ]
+    },
+    {
+      "repo": "EDAPYTHON",
+      "commit": "ac629ab8298e9a7475c948f7769ca4fd24d2803a",
+      "runs": [
+        {
+          "name": "pages build and deployment",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/acarvajalb21/EDAPYTHON/actions/runs/44123672111",
+          "head_sha": "ac629ab8298e9a7475c948f7769ca4fd24d2803a"
+        }
+      ]
+    }
+  ]
+}

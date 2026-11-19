@@ -56,6 +56,8 @@ La compilación de Jupyter Book genera `jupyter_salud/_build/html/`; el lector l
 
 El menú también permite abrir [Shiny](https://shiny-salud-atlantico-409319239507.us-east1.run.app/), [Dash](https://dataviz-salud-atlantico-409319239507.us-east1.run.app/), [Bookdown](https://acarvajalb21.github.io/EDAR/) y [Jupyter Book](https://acarvajalb21.github.io/EDAPYTHON/).
 
-Google Cloud CLI está instalado para administrar publicaciones futuras. Su inicio de sesión es opcional para ese trabajo y no hace falta para usar los proyectos locales. `GCLOUD.ps1` proporciona acceso a la CLI desde esta carpeta.
+Las cuatro publicaciones se actualizaron el 17 de noviembre de 2026 con leyendas en las gráficas, el asistente ampliado y la explicación del modelo. Consulta el [registro de publicación y verificación](gestion/publicacion/ESTADO.md).
+
+Google Cloud CLI y GitHub quedaron autenticados para actualizar estas publicaciones. `GCLOUD.ps1` proporciona acceso a la CLI desde esta carpeta. Los proyectos locales funcionan con sus iniciadores habituales.
 
 Consulta el [estado del entorno](gestion/entorno/ESTADO.md) y el [registro de organización](gestion/migracion/ORGANIZACION.md). Las versiones anteriores se pueden recuperar con `gestion/recuperar_archivo.py` y el índice de migración.

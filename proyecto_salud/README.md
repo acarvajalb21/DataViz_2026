@@ -13,4 +13,4 @@ Entrega final de Alejandro Carvajal y Mateo Chang, recuperada del respaldo del c
 
 Usa el iniciador [ABRIR_DATAVIZ.ps1](../ABRIR_DATAVIZ.ps1) y la [guía general](../README.md). Shiny y Dash incluyen los agregados y recursos que necesitan para sus despliegues independientes. El código del modelo se comparte desde `ml_salud/`; los cuadernos y los scripts del libro fueron adaptados para usarlo desde ahí.
 
-El respaldo original, las diferencias anteriores y los historiales Git están en `../archivo/`. La procedencia y los ajustes se documentan en `../gestion/migracion/`. Los enlaces de publicación están en la guía general. Los despliegues existentes no se modificaron.
+El respaldo original, las diferencias anteriores y los historiales Git están en `../archivo/`. La procedencia y los ajustes se documentan en `../gestion/migracion/`. Las cuatro publicaciones se actualizaron el 17 de noviembre de 2026 con leyendas en las gráficas, el asistente ampliado y la explicación del modelo; los enlaces y las verificaciones están en `../gestion/publicacion/ESTADO.md`.

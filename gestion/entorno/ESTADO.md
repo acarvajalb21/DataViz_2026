@@ -10,7 +10,7 @@ Fecha: 12 de noviembre de 2026. El acceso cotidiano es `INICIAR_DATAVIZ.cmd`, en
 | Jupyter Book | Entorno separado en `proyecto_salud/jupyter_salud/.venv`, con pandas 2.3.3, Jupyter Book 1.x y Kaleido. El libro compiló con sus 15 figuras interactivas. |
 | Pruebas de R | `testthat` instalado y las pruebas de Shiny aprobadas. |
 | RStudio | `DataViz_2026.Rproj` y `Bookdown.Rproj` cargan primero `.dataviz-runtime/r-library/`. La biblioteca global se conserva para otros paquetes y proyectos. |
-| Google Cloud CLI | Versión 593.0.0 instalada y proyecto/región configurados. Su autenticación es opcional para administrar publicaciones; no interviene en el uso local. |
+| Google Cloud CLI | Versión 593.0.0 instalada y proyecto/región configurados. Sesión vinculada el 17 de noviembre de 2026; Shiny y Dash actualizados en Cloud Run. Los libros también se publicaron en GitHub Pages. Registro en `../publicacion/ESTADO.md`. |
 | Git | Código, organización y configuración se guardan localmente. Consulta `git log -1 --oneline` y `git status --short` para el estado exacto. |
 
 ## Kernels de los cuadernos
