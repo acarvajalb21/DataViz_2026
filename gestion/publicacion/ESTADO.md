@@ -1,13 +1,13 @@
 # Publicaciones verificadas
 
-Fecha: 17 de noviembre de 2026. Las cuatro direcciones originales muestran la versión actual del proyecto.
+Fecha: 17 de noviembre de 2026, con una actualización el 19 de noviembre. Las cuatro direcciones originales muestran la versión actual del proyecto.
 
 | Entregable | Dirección | Versión publicada |
 | --- | --- | --- |
 | Shiny | https://shiny-salud-atlantico-409319239507.us-east1.run.app/ | Revisión `shiny-salud-atlantico-c-cb6d100f-20261117` |
-| Dash | https://dataviz-salud-atlantico-409319239507.us-east1.run.app/ | Revisión `dataviz-salud-atlantico-c-cb6d100f-20261117` |
-| Bookdown | https://acarvajalb21.github.io/EDAR/ | Repositorio EDAR, commit `ec63a3f685b7e8a313dcf49551304ef37df9393d` |
-| Jupyter Book | https://acarvajalb21.github.io/EDAPYTHON/ | Repositorio EDAPYTHON, commit `ac629ab8298e9a7475c948f7769ca4fd24d2803a` |
+| Dash | https://dataviz-salud-atlantico-409319239507.us-east1.run.app/ | Revisión `dataviz-salud-atlantico-c-b5a7347e-20261119` |
+| Bookdown | https://acarvajalb21.github.io/EDAR/ | Repositorio EDAR, commit `63028d5018d5bd22580eb6138a4b4df7397a5218` |
+| Jupyter Book | https://acarvajalb21.github.io/EDAPYTHON/ | Repositorio EDAPYTHON, commit `3b9178e16e53527b528411d0d20be728acf40696` |
 
 ## Cambios publicados
 
@@ -17,7 +17,11 @@ Fecha: 17 de noviembre de 2026. Las cuatro direcciones originales muestran la ve
 - Bookdown con texto ampliado, código plegable y capítulo de código del proyecto.
 - Cuadernos y libros compilados con estos cambios.
 
-## Verificación
+## Actualización del 19 de noviembre
+
+Se ajustó la redacción de la sección del experimento de mejora en el Bookdown, el cuaderno del modelo y el informe del Dash. Se volvieron a publicar el Dash en Cloud Run y los dos libros en GitHub Pages; las huellas de `docs/publicacion.json` corresponden a los HTML nuevos. En línea se comprobó la frase nueva en los tres sitios y las respuestas del asistente sobre el modelo.
+
+## Verificación del 17 de noviembre
 
 Los dos servicios de Cloud Run terminaron sus despliegues y asignaron el 100 % del tráfico a las nuevas revisiones. GitHub Pages terminó correctamente sus publicaciones en ambos repositorios.
 
