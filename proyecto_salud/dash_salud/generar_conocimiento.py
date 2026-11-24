@@ -17,7 +17,7 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent
 NOMBRES_SECCION = {"panorama": "Introducción", "objetivos": "Objetivos", "problema": "Problema", "marco": "Marco teórico",
-                   "univariado": "EDA univariado", "creacion": "Modelado", "conclusiones": "Conclusiones"}
+                   "univariado": "EDA univariado", "creacion": "Modelado", "conclusiones": "Conclusiones", "video": "Video"}
 
 
 def pasaje(titulo: str, fuente: str, texto: str, tipo: str) -> dict:
@@ -56,6 +56,10 @@ def bloques_a_pasajes(bloques: list[dict], seccion: str) -> list[dict]:
             salida.extend(pasaje(f"Término: {i['termino']}", f"{fuente}, términos usados", i["definicion"], "glosario") for i in b["items"])
         elif tipo == "preguntas":
             salida.extend(pasaje(i["pregunta"], f"{fuente}, preguntas frecuentes", i["respuesta"], "aplicacion") for i in b["items"])
+        elif tipo == "video":
+            partes = "; ".join(f"{p['titulo']} ({p['tiempo']})" for p in b["paradas"])
+            salida.append(pasaje("¿Dónde está el video de la exposición?", fuente,
+                                 f"El video de la exposición está en la sección Video y dura {b['duracion']}. Partes: {partes}.", "aplicacion"))
         elif tipo in ("columnas", "pila"):
             salida.extend(bloques_a_pasajes(b["bloques"], seccion))
         elif tipo == "pestanas":

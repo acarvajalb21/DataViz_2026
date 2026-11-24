@@ -29,6 +29,7 @@ SECCIONES = [
     ("panorama", "Introducción"), ("objetivos", "Objetivos"), ("problema", "Problema"),
     ("marco", "Marco teórico"), ("univariado", "EDA univariado"), ("explorar", "EDA multivariado"),
     ("creacion", "Modelado"), ("modelo", "Modelo"), ("conclusiones", "Conclusiones"),
+    ("video", "Video"),
 ]
 
 
@@ -328,7 +329,8 @@ def construir(t: Path, relato: dict, modelo: dict, eda: dict) -> dict:
                 {"rotulo": "Para entender el tema", "texto": "Problema explica la cifra principal y qué no significa."},
                 {"rotulo": "Para explorar", "texto": "EDA multivariado deja elegir un grupo y compararlo."},
                 {"rotulo": "Para ver el modelo", "texto": "Modelo muestra qué tan bien ordena y dónde falla."},
-                {"rotulo": "Para cerrar", "texto": "Conclusiones reúne lo que los datos permiten y no permiten decir."}]}]},
+                {"rotulo": "Para cerrar", "texto": "Conclusiones reúne lo que los datos permiten y no permiten decir."},
+                {"rotulo": "Para verlo explicado", "texto": "Video guarda la exposición completa, dividida en partes."}]}]},
         {"tipo": "pie", "texto": "Fuente: microdatos anonimizados del CNPV 2018, DANE. Nombres municipales: DIVIPOLA del DANE. Los cuadros del relato representan grupos, no personas reales."},
     ]}
 
@@ -583,11 +585,23 @@ def construir(t: Path, relato: dict, modelo: dict, eda: dict) -> dict:
         {"tipo": "pie", "texto": "Alejandro Carvajal y Mateo Chang"},
     ]}
 
+    # Los segundos se tomaron de los cambios de pantalla de la grabación.
+    paradas = [(0, "La pregunta"), (38, "De 2,3 millones a 136.034 personas"), (106, "Dentro y fuera de la ruta formal"),
+               (172, "El patrón en el territorio"), (223, "Comparar grupos"), (504, "Cómo se construyó el modelo"),
+               (619, "Qué tan bien ordena"), (764, "BQSI, el asistente"), (872, "Conclusiones")]
+    video = {"titulo": "El proyecto en video", "entrada": "La exposición completa, en quince minutos. Elige una parada para ir directo a esa parte.", "bloques": [
+        {"tipo": "video", "archivo": "video/presentacion.mp4", "portada": "video-portada.jpg",
+         "etiqueta": "Exposición del proyecto Salud Atlántico, 15 minutos y 24 segundos",
+         "boton": "Ver el video", "duracion": "15:24", "paradas_titulo": "Partes del video",
+         "paradas": [{"segundo": s, "tiempo": f"{s // 60}:{s % 60:02d}", "titulo": titulo} for s, titulo in paradas],
+         "error": "El video no se pudo cargar.", "descarga": "Descargar el video (MP4, 29 MB)"},
+    ]}
+
     return {
         "nombre": NOMBRE,
         "secciones": [{"id": a, "etiqueta": b} for a, b in SECCIONES],
         "paginas": {"panorama": panorama, "objetivos": objetivos, "problema": problema, "marco": marco,
-                    "univariado": univariado, "creacion": creacion, "conclusiones": conclusiones},
+                    "univariado": univariado, "creacion": creacion, "conclusiones": conclusiones, "video": video},
         "modelo": pagina_modelo(modelo, t),
         "explorar": {
             "titulo": "Comparar grupos",

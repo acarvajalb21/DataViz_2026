@@ -10,7 +10,7 @@
   var INICIO = ["¿Qué significa estar fuera de la ruta formal?", "¿Qué municipio tiene el mayor porcentaje?",
                 "¿Qué tan bueno es el modelo?", "¿Qué limitaciones tiene el análisis?"];
   var NOMBRES = { panorama: "Introducción", objetivos: "Objetivos", problema: "Problema", marco: "Marco teórico", univariado: "EDA univariado",
-                  explorar: "EDA multivariado", creacion: "Modelado", modelo: "Modelo", conclusiones: "Conclusiones" };
+                  explorar: "EDA multivariado", creacion: "Modelado", modelo: "Modelo", conclusiones: "Conclusiones", video: "Video" };
   var CHEVRON = "M3 10.5 8 5.5l5 5";
   var FLECHA = "M8 13V3M3.5 7.5 8 3l4.5 4.5";
   var URL_PUBLICA = "https://dataviz-salud-atlantico-409319239507.us-east1.run.app/api/asistente";

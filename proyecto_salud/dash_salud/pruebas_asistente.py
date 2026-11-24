@@ -16,6 +16,7 @@ CON_RESPUESTA = [
     ("¿Qué es la dificultad funcional?", "dificultad"),
     ("¿Qué es una EPS?", "afiliación"),
     ("¿De qué trata este proyecto?", "censo de 2018"),
+    ("¿Dónde está el video de la exposición?", "sección Video"),
     ("¿Cuál es el resultado principal?", "28.650"),
     ("¿Cuántas personas se estudiaron?", "136.034"),
     ("¿Qué hicieron las personas fuera de la ruta formal?", "autorrecetarse"),

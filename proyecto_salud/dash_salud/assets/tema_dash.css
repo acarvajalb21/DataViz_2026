@@ -20,7 +20,7 @@ html:root {
 .site-header .tab-parent, .site-header > div:last-child { flex: 1 1 auto; min-width: 0; }
 .nav-tabs { background: transparent; border: 0; display: flex !important; flex-direction: row !important; flex-wrap: nowrap; justify-content: flex-end; overflow-x: auto; scrollbar-width: none; }
 .nav-tabs::-webkit-scrollbar { display: none; }
-.nav-tabs > .nav-tab, .nav-tabs > div { background: transparent !important; border: 0 !important; color: var(--claro-suave) !important; cursor: pointer; flex: 0 0 auto !important; font-size: .9rem; font-weight: 500; line-height: 1.2; min-width: 0; padding: 34px 18px 10px 11px !important; position: relative; text-align: left; white-space: nowrap; width: auto !important; }
+.nav-tabs > .nav-tab, .nav-tabs > div { background: transparent !important; border: 0 !important; color: var(--claro-suave) !important; cursor: pointer; flex: 0 0 auto !important; font-size: .9rem; font-weight: 500; line-height: 1.2; min-width: 0; padding: 34px 12px 10px 11px !important; position: relative; text-align: left; white-space: nowrap; width: auto !important; }
 .nav-tabs > div::after { background: var(--hilo-claro); content: ""; height: 3px; left: 0; position: absolute; right: 0; top: 19px; }
 .nav-tabs > div:first-child::after { left: 11px; }
 .nav-tabs > div:last-child::after { right: auto; width: 11px; }

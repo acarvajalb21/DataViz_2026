@@ -1,11 +1,11 @@
 # Publicaciones verificadas
 
-Fecha: 17 de noviembre de 2026, con una actualización el 19 de noviembre. Las cuatro direcciones originales muestran la versión actual del proyecto.
+Fecha: 17 de noviembre de 2026, con actualizaciones el 19 y el 24 de noviembre. Las cuatro direcciones originales muestran la versión actual del proyecto.
 
 | Entregable | Dirección | Versión publicada |
 | --- | --- | --- |
-| Shiny | https://shiny-salud-atlantico-409319239507.us-east1.run.app/ | Revisión `shiny-salud-atlantico-c-cb6d100f-20261117` |
-| Dash | https://dataviz-salud-atlantico-409319239507.us-east1.run.app/ | Revisión `dataviz-salud-atlantico-c-b5a7347e-20261119` |
+| Shiny | https://shiny-salud-atlantico-409319239507.us-east1.run.app/ | Revisión `shiny-salud-atlantico-video-20261124` |
+| Dash | https://dataviz-salud-atlantico-409319239507.us-east1.run.app/ | Revisión `dataviz-salud-atlantico-video-20261124` |
 | Bookdown | https://acarvajalb21.github.io/EDAR/ | Repositorio EDAR, commit `63028d5018d5bd22580eb6138a4b4df7397a5218` |
 | Jupyter Book | https://acarvajalb21.github.io/EDAPYTHON/ | Repositorio EDAPYTHON, commit `3b9178e16e53527b528411d0d20be728acf40696` |
 
@@ -20,6 +20,10 @@ Fecha: 17 de noviembre de 2026, con una actualización el 19 de noviembre. Las c
 ## Actualización del 19 de noviembre
 
 Se ajustó la redacción de la sección del experimento de mejora en el Bookdown, el cuaderno del modelo y el informe del Dash. Se volvieron a publicar el Dash en Cloud Run y los dos libros en GitHub Pages; las huellas de `docs/publicacion.json` corresponden a los HTML nuevos. En línea se comprobó la frase nueva en los tres sitios y las respuestas del asistente sobre el modelo.
+
+## Actualización del 24 de noviembre
+
+Shiny y Dash tienen una sección Video con la exposición (15:24) y nueve partes que se pueden pulsar. Se publicaron las dos aplicaciones en Cloud Run con sus ajustes anteriores; los libros no cambiaron. En línea, el video descargado completo coincide con el archivo local en ambos servicios (MD5 `84421f7600faf25ee7b91675c0afb62c`), la respuesta por rangos es 206 y el salto a Conclusiones reprodujo el video en el navegador. No se probó en Safari.
 
 ## Verificación del 17 de noviembre
 

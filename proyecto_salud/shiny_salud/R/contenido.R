@@ -37,6 +37,23 @@ pestanas_bloque <- function(b) {
   div(class = "c-subnav", do.call(navset_underline, c(list(id = b$id), paneles)))
 }
 
+# Banda con el reproductor y sus paradas; video.js conecta los botones y R/video.R sirve el archivo.
+video_bloque <- function(b) {
+  tags$section(class = "video-banda", `aria-label` = b$etiqueta,
+    div(class = "video-marco",
+        tags$video(src = b$archivo, poster = b$portada, controls = NA, preload = "none", playsinline = NA, `aria-label` = b$etiqueta),
+        tags$button(type = "button", class = "boton video-reproducir", `data-video-ir` = "0", b$boton, span(b$duracion))),
+    div(class = "video-lado",
+        h2(b$paradas_titulo),
+        tags$ol(class = "video-paradas", lapply(b$paradas, function(p) {
+          tags$li(tags$button(type = "button", class = "video-parada", `data-video-ir` = p$segundo,
+                              span(p$titulo), span(class = "video-tiempo", p$tiempo)))
+        }))),
+    p(class = "video-pie",
+      span(class = "video-error", role = "status", b$error),
+      tags$a(b$descarga, href = b$archivo, download = "salud_atlantico_exposicion.mp4")))
+}
+
 bloque <- function(b) {
   switch(b$tipo,
     parrafos = caja(tagList(div(class = "c-texto", lapply(b$parrafos, tags$p)),
@@ -66,6 +83,7 @@ bloque <- function(b) {
       tags$li(i$texto, " ", if (!is.null(i$url)) enlace("Ver fuente", i$url))
     })), b$titulo),
     enlaces = caja(tags$ul(class = "c-enlaces", lapply(b$items, function(i) tags$li(enlace(i$texto, i$url)))), b$titulo),
+    video = video_bloque(b),
     pie = p(class = "c-pie", b$texto),
     stop("Bloque desconocido: ", b$tipo)
   )

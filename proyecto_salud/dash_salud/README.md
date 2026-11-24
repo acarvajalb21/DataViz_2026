@@ -1,12 +1,16 @@
 # Panel interactivo Salud Atlántico
 
-Panel Dash de nueve secciones: **Introducción**, **Objetivos**, **Problema**, **Marco teórico**, **EDA univariado**, **EDA multivariado**, **Modelado**, **Modelo** y **Conclusiones**.
+Panel Dash de diez secciones: **Introducción**, **Objetivos**, **Problema**, **Marco teórico**, **EDA univariado**, **EDA multivariado**, **Modelado**, **Modelo**, **Conclusiones** y **Video**.
 El universo es la población del Atlántico que reportó un problema
 de salud en los 30 días previos al CNPV 2018 sin hospitalización y con acción
 principal clasificable. La clase «fuera de la ruta formal» significa que la
 acción principal **no** fue EPS con atención o médico particular bajo la regla
 del EDA. No implica necesariamente denegación, falta total de atención ni
 una barrera causal.
+
+## Video
+
+`media/presentacion.mp4` es la exposición recomprimida para la web (1440 × 720, 15 fps, 29 MB; el original pesa 132 MB). Se sirve en `/video/presentacion.mp4` con rangos de hasta 2 MB, para saltar de parte sin descargarlo completo. Es idéntico en Dash y Shiny. Las partes y sus segundos están en `generar_contenido.py`.
 
 ## Origen y privacidad
 
@@ -85,7 +89,7 @@ Build/Artifact Registry y facturación habilitada en el proyecto:
 El script verifica los dos JSON y el Bookdown, usa `gcloud run deploy
 --source .` y publica un enlace accesible sin autenticación. El servicio está
 disponible en [Google Cloud Run](https://dataviz-salud-atlantico-409319239507.us-east1.run.app/).
-Tras actualizarlo, compruebe `/health`, `/informe/` y las nueve secciones. Cloud
+Tras actualizarlo, compruebe `/health`, `/informe/` y las diez secciones. Cloud
 Run reserva algunas rutas terminadas en `z`, por lo que se usa `/health`.
 
 Si se usa **Cloud Shell**, clone este repositorio y ejecute:

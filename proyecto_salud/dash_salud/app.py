@@ -12,7 +12,7 @@ from pathlib import Path
 
 import plotly.graph_objects as go
 from dash import Dash, Input, Output, State, dcc, html
-from flask import abort, jsonify, request, send_from_directory
+from flask import abort, jsonify, request, send_file, send_from_directory
 
 from dash_salud.asistente import LARGO_MAXIMO, Asistente
 
@@ -407,6 +407,25 @@ def pestanas(id_: str, titulos: list[str], contenidos: list) -> html.Div:
     ])
 
 
+def video_bloque(b: dict) -> html.Section:
+    """Banda con el reproductor y sus paradas; video.js conecta los botones."""
+    return html.Section([
+        html.Div([
+            html.Video(src=f"/{b['archivo']}", poster=f"/assets/{b['portada']}", controls=True, preload="none",
+                       **{"aria-label": b["etiqueta"]}),
+            html.Button([b["boton"], html.Span(b["duracion"])], type="button", className="boton video-reproducir", **{"data-video-ir": "0"}),
+        ], className="video-marco"),
+        html.Div([
+            html.H2(b["paradas_titulo"]),
+            html.Ol([html.Li(html.Button([html.Span(p["titulo"]), html.Span(p["tiempo"], className="video-tiempo")], type="button",
+                                         className="video-parada", **{"data-video-ir": str(p["segundo"])})) for p in b["paradas"]],
+                    className="video-paradas"),
+        ], className="video-lado"),
+        html.P([html.Span(b["error"], className="video-error", role="status"),
+                html.A(b["descarga"], href=f"/{b['archivo']}", download="salud_atlantico_exposicion.mp4")], className="video-pie"),
+    ], className="video-banda", **{"aria-label": b["etiqueta"]})
+
+
 def bloque(b: dict):
     tipo = b["tipo"]
     if tipo == "parrafos":
@@ -456,6 +475,8 @@ def bloque(b: dict):
                               for item in b["items"]], className="c-referencias")], b["titulo"])
     if tipo == "enlaces":
         return caja([html.Ul([html.Li(enlace(item["texto"], item["url"])) for item in b["items"]], className="c-enlaces")], b["titulo"])
+    if tipo == "video":
+        return video_bloque(b)
     if tipo == "pie":
         return html.P(b["texto"], className="c-pie")
     raise ValueError(f"Bloque desconocido: {tipo}")
@@ -626,6 +647,33 @@ def informe(filename="index.html"):
     if not (path / "index.html").is_file():
         abort(404)
     return send_from_directory(path, filename)
+
+
+VIDEO = Path(__file__).resolve().parent / "media" / "presentacion.mp4"
+TROZO_VIDEO = 2 * 1024 ** 2
+
+
+@server.get("/video/presentacion.mp4")
+def video():
+    """Entrega el video en trozos cortos: permite saltar de parte y no retiene un hilo mientras se reproduce."""
+    if not VIDEO.is_file():
+        abort(404)
+    tamano = VIDEO.stat().st_size
+    cabeceras = {"Accept-Ranges": "bytes", "Cache-Control": "public, max-age=86400"}
+    rango = request.range
+    if rango is None:
+        respuesta = send_file(VIDEO, mimetype="video/mp4", conditional=False)
+        respuesta.headers.update(cabeceras)
+        return respuesta
+    limites = rango.range_for_length(tamano)
+    if limites is None:
+        return server.response_class(status=416, headers={**cabeceras, "Content-Range": f"bytes */{tamano}"})
+    inicio, fin = limites[0], min(limites[1], limites[0] + TROZO_VIDEO)
+    with VIDEO.open("rb") as archivo:
+        archivo.seek(inicio)
+        datos = archivo.read(fin - inicio)
+    return server.response_class(datos, status=206, mimetype="video/mp4",
+                                 headers={**cabeceras, "Content-Range": f"bytes {inicio}-{fin - 1}/{tamano}"})
 
 
 def layout_pagina(clave: str) -> html.Div:

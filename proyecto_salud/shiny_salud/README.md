@@ -1,6 +1,6 @@
 # Aplicación Shiny · Salud Atlántico
 
-Aplicación en R con nueve secciones: **Introducción**, **Objetivos**, **Problema**, **Marco teórico**, **EDA univariado**, **EDA multivariado**, **Modelado**, **Modelo** y **Conclusiones**. Usa los mismos agregados, textos y reglas de protección que el tablero Dash. La documentación completa está en el capítulo 8 del Bookdown (`08-aplicacion-shiny.Rmd`) y el sistema visual, en [`DISENO.md`](DISENO.md).
+Aplicación en R con diez secciones: **Introducción**, **Objetivos**, **Problema**, **Marco teórico**, **EDA univariado**, **EDA multivariado**, **Modelado**, **Modelo**, **Conclusiones** y **Video**. Usa los mismos agregados, textos y reglas de protección que el tablero Dash. La documentación completa está en el capítulo 8 del Bookdown (`08-aplicacion-shiny.Rmd`) y el sistema visual, en [`DISENO.md`](DISENO.md).
 
 ## Ejecutar
 
@@ -24,6 +24,8 @@ No hacen falta microdatos: `data/` solo contiene `eda.json`, `modelo.json` y `co
 | `R/graficos.R` | Gráficas Plotly |
 | `R/vistas.R` | Explorar y Modelo, las secciones con controles |
 | `R/contenido.R` | Bloques de las demás secciones, leídos de `contenido.json` |
+| `R/video.R` | Entrega del video por trozos en `/video/presentacion.mp4` |
+| `media/` | Video de la exposición, idéntico al del Dash |
 | `R/formato.R` | Números en español |
 | `www/` | Estilos, fuentes, relato de apertura y asistente |
 | `pruebas/pruebas.R` | Comprobaciones automáticas |

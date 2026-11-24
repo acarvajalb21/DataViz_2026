@@ -2,11 +2,11 @@
 
 Base común de Dash y Shiny. El público es general: debe sentirse como un informe público que se puede interrogar, sereno, preciso y honesto con sus denominadores.
 
-La dirección «Del censo a la ruta» abre con un relato oscuro, con escenas que avanzan al hacer scroll. El protagonista son los datos del proyecto: no usa imágenes generadas ni video.
+La dirección «Del censo a la ruta» abre con un relato oscuro, con escenas que avanzan al hacer scroll. El protagonista son los datos del proyecto: el relato no usa imágenes generadas ni video.
 
 ## Elemento propio
 
-La ruta. La navegación es una línea con nueve paradas, y las etapas del proyecto y del modelo repiten ese mismo dibujo. El diagrama de respuestas muestra la ruta real de las personas estudiadas.
+La ruta. La navegación es una línea con diez paradas, y las etapas del proyecto y del modelo repiten ese mismo dibujo. El diagrama de respuestas muestra la ruta real de las personas estudiadas.
 
 ## Color
 
@@ -50,6 +50,7 @@ Escala: texto 17 px con interlineado 1,6; notas 15 a 16 px; subtítulos 21 a 24 
 - **Banda de selección.** Filtros y resultado van juntos, para que se vea qué cambia cada filtro.
 - **Frase viva.** Resume cada selección y solo enuncia un porcentaje cuando las reglas lo permiten.
 - **Cinta de cobertura.** Muestra el estado del porcentaje, su motivo y la marca del mínimo de 80 %.
+- **Video.** La exposición tiene su propia sección, al final de la ruta. El reproductor va en una banda de noche y sus partes son paradas que se pueden pulsar; la parada en curso se marca como en la navegación. No se reproduce solo y se pausa al cambiar de sección.
 - **BQSI.** El chatbot es una pestaña acoplada al borde inferior, en `acento` para verse sobre fondos claros y oscuros, que se despliega como ventana de chat. Sus curvas más amplias lo separan del contenido del proyecto.
 
 ## Contenido

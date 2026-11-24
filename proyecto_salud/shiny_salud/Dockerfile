@@ -14,6 +14,7 @@ COPY app.R ./
 COPY R/ R/
 COPY data/ data/
 COPY www/ www/
+COPY media/ media/
 
 EXPOSE 8080
 CMD ["Rscript", "-e", "shiny::runApp('/app', host = '0.0.0.0', port = as.integer(Sys.getenv('PORT')), launch.browser = FALSE)"]

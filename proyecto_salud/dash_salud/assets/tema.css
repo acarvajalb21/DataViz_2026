@@ -253,6 +253,35 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .ruta-relleno.dentro { background: var(--dentro); }
 .ruta-relleno.fuera { background: var(--fuera); }
 
+/* Video: banda de noche con las paradas de la ruta al lado del reproductor. */
+.video-banda { align-items: start; background: var(--noche); color: var(--claro); display: grid; gap: 18px 48px; grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr); margin: 0 calc(50% - 50vw); padding: 36px max(24px, calc((100vw - var(--ancho)) / 2 + 24px)) 32px; }
+.video-marco { position: relative; }
+.video-marco video { aspect-ratio: 2 / 1; background: #062A42; border-radius: var(--radio); display: block; height: auto; object-fit: contain; width: 100%; }
+.video-banda .video-reproducir { background: var(--acento); border-color: var(--acento); bottom: 72px; color: var(--noche); gap: 12px; left: 24px; position: absolute; }
+.video-banda .video-reproducir::before { border-bottom: 8px solid transparent; border-left: 13px solid currentColor; border-top: 8px solid transparent; content: ""; }
+.video-banda .video-reproducir:hover { background: var(--claro); border-color: var(--claro); color: var(--noche); }
+.video-banda .video-reproducir span { font-variant-numeric: tabular-nums; font-weight: 500; }
+.video-banda.iniciado .video-reproducir { display: none; }
+.video-lado h2 { color: var(--claro); font-size: 1.3rem; font-weight: 650; letter-spacing: -.01em; margin-bottom: 8px; }
+.video-paradas { list-style: none; margin: 0; padding: 0; }
+.video-paradas li { margin: 0; }
+.video-parada { align-items: baseline; background: none; border: 0; color: var(--claro-suave); cursor: pointer; display: flex; font: 500 1rem/1.3 var(--texto); gap: 14px; justify-content: space-between; min-height: 40px; padding: 9px 0 9px 28px; position: relative; text-align: left; width: 100%; }
+.video-parada::before { background: var(--noche); border: 3px solid var(--claro-suave); border-radius: 50%; box-sizing: border-box; content: ""; height: 13px; left: 2px; position: absolute; top: 13px; width: 13px; z-index: 1; }
+.video-parada::after { background: var(--hilo-claro); bottom: -13px; content: ""; left: 7px; position: absolute; top: 20px; width: 3px; }
+.video-paradas li:last-child .video-parada::after { display: none; }
+.video-parada:hover { color: var(--claro); }
+.video-tiempo { flex: none; font-size: .94rem; font-variant-numeric: tabular-nums; }
+.video-parada.recorrida::before, .video-parada[aria-current]::before { background: var(--acento); border-color: var(--acento); }
+.video-parada.recorrida::after { background: var(--acento); }
+.video-parada[aria-current] { color: var(--claro); font-weight: 700; }
+.video-parada[aria-current]::before { box-shadow: 0 0 0 3px var(--noche), 0 0 0 5px var(--acento); }
+.video-banda a:focus-visible, .video-banda button:focus-visible, .video-banda video:focus-visible { outline: 3px solid var(--acento); outline-offset: 2px; }
+.video-pie { font-size: .94rem; grid-column: 1 / -1; }
+.video-pie a { color: var(--claro); font-weight: 600; }
+.video-pie a:hover { color: var(--acento); }
+.video-error { display: none; margin-right: 8px; }
+.video-banda.con-error .video-error { display: inline; }
+
 /* Pie */
 .pie-sitio { background: var(--noche); color: var(--claro-suave); font-size: .92rem; padding: 22px max(24px, calc((100vw - var(--ancho)) / 2 + 24px)); }
 .pie-sitio a { color: var(--claro); }
@@ -338,9 +367,10 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   .seleccion-filtros { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .seleccion-filtros > :first-child { grid-column: 1 / -1; }
   .lecturas, .laboratorio, .cambio, .seleccion-resultado { grid-template-columns: minmax(0, 1fr); }
+  .video-banda { column-gap: 32px; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); }
 }
 @media (max-width: 960px) {
-  .c-columnas, .c-lista.dos, .c-permite { grid-template-columns: minmax(0, 1fr); }
+  .c-columnas, .c-lista.dos, .c-permite, .video-banda { grid-template-columns: minmax(0, 1fr); }
   .c-glosario { columns: 1; }
   .c-horizontal .c-etapas { flex-direction: column; }
   .c-horizontal .c-etapas li { border-left: 4px solid var(--tinta); border-top: 0; margin: 0 0 0 8px; padding: 0 0 18px 24px; }
@@ -351,7 +381,9 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   :root { --cabecera: 60px; }
   body { font-size: 16.5px; }
   .pagina, .c-pagina { gap: 34px; padding: 26px 16px 48px; }
-  .seleccion, .cambio { padding-left: 16px; padding-right: 16px; }
+  .seleccion, .cambio, .video-banda { padding-left: 16px; padding-right: 16px; }
+  .video-banda { padding-top: 16px; }
+  .video-banda .video-reproducir { margin-top: 12px; position: static; width: 100%; }
   .c-fichas { grid-template-columns: minmax(0, 1fr); }
   .c-ficha, .c-ficha:first-child { padding: 12px 0; }
   .c-ficha + .c-ficha { border-left: 0; border-top: 1px solid var(--hilo); }

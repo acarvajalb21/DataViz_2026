@@ -41,13 +41,13 @@ test_that("el relato solo publica agregados y coincide con el del Dash", {
   expect_equal(con_dato$sin_formal, panorama$sin_formal)
   dash <- file.path("..", "dash_salud", "assets")
   skip_if_not(dir.exists(dash))
-  for (nombre in c("relato.js", "relato.css", "relato_datos.json", "tema.css", "asistente.js")) {
+  for (nombre in c("relato.js", "relato.css", "relato_datos.json", "tema.css", "asistente.js", "video.js", "video-portada.jpg")) {
     expect_equal(unname(tools::md5sum(file.path("www", nombre))), unname(tools::md5sum(file.path(dash, nombre))))
   }
 })
 
 test_that("las secciones se construyen y solo publican grupos protegidos", {
-  expect_length(CONTENIDO$secciones, 9)
+  expect_length(CONTENIDO$secciones, 10)
   for (clave in names(CONTENIDO$paginas)) expect_s3_class(vista_contenido(clave), "shiny.tag")
   expect_gt(length(barras_contenido()), 5)
   for (v in CONTENIDO$explorar$variables) {
@@ -58,6 +58,25 @@ test_that("las secciones se construyen y solo publican grupos protegidos", {
   expect_equal(variable_comparada("edad")$v, "0,163")
   expect_equal(variable_comparada("municipio")$v, "0,085")
   expect_false(grepl("valor p ", tolower(as.character(vista_contenido("creacion"))), fixed = TRUE))
+})
+
+test_that("el video se sirve por trozos y es el mismo del Dash", {
+  tamano <- file.size(RUTA_VIDEO)
+  pedir <- function(rango = NULL, ruta = "/video/presentacion.mp4") responder_video(list(PATH_INFO = ruta, HTTP_RANGE = rango))
+  expect_equal(length(pedir()$content), tamano)
+  inicio <- pedir("bytes=0-")
+  expect_equal(inicio$status, 206L)
+  expect_equal(inicio$headers[["Content-Range"]], sprintf("bytes 0-%.0f/%.0f", TROZO_VIDEO - 1, tamano))
+  expect_length(inicio$content, TROZO_VIDEO)
+  medio <- pedir("bytes=1000000-1000099")
+  expect_identical(medio$content, readBin(RUTA_VIDEO, "raw", tamano)[1000001:1000100])
+  expect_equal(pedir("bytes=-100")$headers[["Content-Range"]], sprintf("bytes %.0f-%.0f/%.0f", tamano - 100, tamano - 1, tamano))
+  expect_equal(pedir(sprintf("bytes=%.0f-", tamano))$status, 416L)
+  expect_equal(pedir("bytes=-")$status, 416L)
+  expect_equal(pedir(ruta = "/video/otro.mp4")$status, 404L)
+  dash <- file.path("..", "dash_salud", "media", "presentacion.mp4")
+  skip_if_not(file.exists(dash))
+  expect_equal(unname(tools::md5sum(RUTA_VIDEO)), unname(tools::md5sum(dash)))
 })
 
 test_that("la frase no enuncia porcentajes ocultos", {

@@ -14,7 +14,7 @@ from dash_salud.app import (
 def client_assets_ok() -> bool:
     client = app.server.test_client()
     return all(client.get(f"/assets/{name}").status_code == 200 for name in
-               ("relato.js", "relato.css", "relato_datos.json", "tema.css", "tema_dash.css",
+               ("relato.js", "relato.css", "relato_datos.json", "tema.css", "tema_dash.css", "video.js", "video-portada.jpg",
                 "fonts/bricolage-grotesque-latin-wght-normal.woff2", "fonts/atkinson-next-latin-wght-normal.woff2"))
 
 
@@ -102,7 +102,7 @@ def run() -> None:
     components = list(walk(app.layout))
     nav = next(item for item in components if getattr(item, "id", None) == "nav")
     assert [tab.label for tab in nav.children] == [seccion["etiqueta"] for seccion in CONTENIDO["secciones"]]
-    assert len(nav.children) == 9
+    assert len(nav.children) == 10
     text = " ".join(item.children for item in components if isinstance(getattr(item, "children", None), str))
     for phrase in ("Pregunta de investigación", "Objetivos específicos", "2. Qué significa acceso",
                    "Referencias", "Las 28 variables del modelo", "Por qué algunos resultados no aparecen"):
@@ -144,6 +144,18 @@ def run() -> None:
     assert b'id="modelo-contexto-2026"' in client.get("/informe/modelo.html").data
     assert client.get("/informe/figures/curvas_modelo.png").status_code == 200
     assert client.get("/informe/figures/brecha_dificultad_2026.png").status_code == 200
+    # El video se entrega por trozos: sin rangos no se puede saltar a una parte.
+    tamano = len(client.get("/video/presentacion.mp4").data)
+    trozo = client.get("/video/presentacion.mp4", headers={"Range": "bytes=0-"})
+    assert trozo.status_code == 206 and len(trozo.data) == 2 * 1024 ** 2
+    assert trozo.headers["Content-Range"] == f"bytes 0-{2 * 1024 ** 2 - 1}/{tamano}"
+    final = client.get("/video/presentacion.mp4", headers={"Range": "bytes=-100"})
+    assert final.status_code == 206 and final.headers["Content-Range"] == f"bytes {tamano - 100}-{tamano - 1}/{tamano}"
+    assert client.get("/video/presentacion.mp4", headers={"Range": f"bytes={tamano}-"}).status_code == 416
+    assert tamano < 32 * 1024 ** 2  # Límite de una respuesta completa en Cloud Run.
+    bloque_video = next(b for b in CONTENIDO["paginas"]["video"]["bloques"] if b["tipo"] == "video")
+    segundos = [p["segundo"] for p in bloque_video["paradas"]]
+    assert segundos == sorted(segundos) and segundos[0] == 0 and segundos[-1] < 924
     print("Dash y datos publicables: verificaciones satisfactorias")
 
 

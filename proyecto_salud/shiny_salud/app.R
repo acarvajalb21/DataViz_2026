@@ -24,6 +24,7 @@ ui <- do.call(page_navbar, c(list(
     tags$link(rel = "stylesheet", href = "tema_shiny.css"),
     tags$script(src = "relato.js"),
     tags$script(src = "asistente.js"),
+    tags$script(src = "video.js"),
     tags$meta(name = "description", content = "Exploración y modelo sobre la ruta de atención declarada en el Atlántico, CNPV 2018."),
     # En móvil el menú se cierra al elegir una sección; las pestañas internas no mueven la página.
     tags$script(HTML("document.addEventListener('click', function (e) {
@@ -179,4 +180,7 @@ server <- function(input, output, session) {
   output$g_importancia <- renderPlotly(g_importancia())
 }
 
-shinyApp(ui, server)
+# La ruta del video comparte el servidor de la interfaz.
+pagina <- function(req) if (startsWith(req$PATH_INFO, "/video/")) responder_video(req) else ui
+
+shinyApp(pagina, server, uiPattern = "^/(video/.*)?$")
